@@ -38,12 +38,7 @@ class AuthScreen extends React.Component {
             </View>;
         }
         return (
-            <View style={styles.container1}>
-                <Text>
-                    {this.state.AuthText}
-                </Text>
-                <Login></Login>
-            </View>
+            <Login></Login>
         )
     }
 }

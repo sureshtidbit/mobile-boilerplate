@@ -4,7 +4,8 @@ import {
     ScrollView,
     StyleSheet,
     TouchableOpacity,
-    Text
+    Text,
+    TextInput
 } from "react-native";
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation } from 'react-navigation'
@@ -48,14 +49,41 @@ class LoginScreen extends Component {
                 console.log(error)
             })
     }
+    GoToHomeScreen(){
+        this.props.navigation.navigate('Home')
+    }
     render() {
         return (
-            <ScrollView>
-                <View>
-                    <TouchableOpacity onPress={() => this.MakeLogin()} style={{ padding: 20, backgroundColor: '#F00' }}>
-                        <Text>Login</Text>
-                    </TouchableOpacity>
-                    <Text>{JSON.stringify(this.props.currentUser)}</Text>
+            // <ScrollView>
+            //     <View>
+            //         <TouchableOpacity onPress={() => this.MakeLogin()} style={{ padding: 20, backgroundColor: '#F00' }}>
+            //             <Text>Login</Text>
+            //         </TouchableOpacity>
+            //         <Text>{JSON.stringify(this.props.currentUser)}</Text>
+            //     </View>
+            // </ScrollView>
+            <ScrollView contentContainerStyle={{ flex: 1 }}
+                style={{ height: '100%' }}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={styles.MainView3}>
+                        <TextInput
+                            style={styles.TextInputAll}
+                            placeholder="Email"
+                        />
+                        <TextInput
+                            style={styles.TextInputAll}
+                            placeholder="Password"
+                        />
+                        <View style={styles.LoginBtnView}>
+                            <TouchableOpacity onPress={()=>this.GoToHomeScreen()} style={styles.TouchableOpacityBtn}>
+                                <Text style={styles.LoginBtn}>Login</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.TouchableOpacityBtn}>
+                                <Text style={styles.LoginBtn}>Forgot Password</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             </ScrollView>
         );
@@ -82,12 +110,55 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 // Exports
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(LoginScreen))
 
 const styles = StyleSheet.create({
-    container: {
+
+    ScrollView1: {
         flex: 1,
+        backgroundColor: '#EEE'
+    },
+    MainView2: {
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
-    }
+        backgroundColor: '#AAA',
+        height: 233
+    },
+    MainView3: {
+        backgroundColor: '#fff',
+        padding: 20,
+        borderRadius: 5,
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: '#888',
+        width: '80%',
+        margin: 20
+    },
+    TextInputAll: {
+        height: 40,
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+        paddingLeft: 15,
+        marginTop: 15,
+    },
+    LoginBtnView: {
+        marginTop: 15,
+        flexDirection: 'row',
+    },
+    TouchableOpacityBtn: {
+        marginRight: 15,
+    },
+    LoginBtn: {
+        color: 'blue',
+        fontSize: 12,
+        color: '#fff',
+        backgroundColor: '#3f51b5',
+        padding: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        borderRadius: 4,
+        textAlign: 'center',
+    },
+
 });

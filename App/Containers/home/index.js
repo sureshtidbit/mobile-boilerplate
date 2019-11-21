@@ -10,7 +10,7 @@ import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button
 import FIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { withNavigation } from 'react-navigation'
-
+import UserList from './userList'
 class HomeScreen extends Component {
   GoToUserProfile() {
     this.props.navigation.openDrawer();
@@ -28,6 +28,7 @@ class HomeScreen extends Component {
   }
   render() {
     return (
+      <Container>
       <Header style={{ backgroundColor: '#F00' }}>
         <Left>
           <TouchableOpacity onPress={() => this.OpenDrawer()} style={{width: 32, height: 32}}>
@@ -39,6 +40,8 @@ class HomeScreen extends Component {
         <Right>
         </Right>
       </Header>
+      <UserList></UserList>
+      </Container>
     );
   }
 }
