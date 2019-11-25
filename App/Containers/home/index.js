@@ -9,9 +9,8 @@ import {
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import FIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { withNavigation } from 'react-navigation'
+import { withNavigation,withNavigationFocus } from 'react-navigation'
 import UserList from './userList'
-import ScreenTracking from './screenTracking'
 class HomeScreen extends Component {
   componentDidMount() {
     console.log(';ScreenTracking', ScreenTracking())
@@ -23,6 +22,11 @@ class HomeScreen extends Component {
   }
   OpenDrawer() {
     this.props.navigation.openDrawer();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      console.log(prevProps,this.props,prevProps.isFocused, this.props.isFocused)
+    }
   }
   Logout() {
     let app = this
@@ -49,7 +53,7 @@ class HomeScreen extends Component {
     );
   }
 }
-export default withNavigation(HomeScreen);
+export default withNavigationFocus(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
