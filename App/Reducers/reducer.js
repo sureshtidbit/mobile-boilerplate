@@ -1,4 +1,3 @@
-import { NavigationActions, withNavigation } from 'react-navigation';
 const INITIAL_STATE = {
     currentUser: {},
     isLoggingIn: false,
@@ -25,13 +24,10 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 loading: action.payload
             };
         case 'LOADER_STOP':
-                // this.props.navigation.navigate('IsLoggedIn')
-            NavigationActions.navigate({ routeName: 'IsLoggedIn' });
-            return state;
-        // return {
-        //     ...state,
-        //     loading: action.payload
-        // };
+            return {
+                ...state,
+                loading: action.payload
+            };
         default:
             return state;
     };

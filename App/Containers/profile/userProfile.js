@@ -11,7 +11,7 @@ import {
     ActivityIndicator,
     StatusBar
 } from "react-native";
-import { withNavigation,withNavigationFocus } from 'react-navigation'
+import { withNavigation, withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
 import { Avatar } from 'react-native-paper';
@@ -71,9 +71,9 @@ class UserProfile extends Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.isFocused !== this.props.isFocused) {
-          console.log('==========',prevProps,this.props,prevProps.isFocused, this.props.isFocused)
+            console.log('==========', prevProps, this.props, prevProps.isFocused, this.props.isFocused)
         }
-      }
+    }
     componentDidMount() {
         this.login()
     }
@@ -97,7 +97,7 @@ class UserProfile extends Component {
         }).then((response) => response.json())
             .then((responseData) => {
                 console.log(responseData)
-                this.props.ReduxCurrentUser('')
+                this.props.ReduxCurrentUser(this.props)
                 // this.props.navigation.navigate('IsLoggedIn')
             }).catch(function (error) {
                 console.log(error)
@@ -189,10 +189,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // Increase Counter
         ReduxCurrentUser: (payload) => dispatch(Loading(payload)),
-        // Decrease Counter
-        //   reduxDecreaseCounter: () => dispatch(decreaseCounter()),
-        // Login
-        //   reduxLogin: (trueFalse) => dispatch(login(trueFalse)),
     };
 };
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(UserProfile))

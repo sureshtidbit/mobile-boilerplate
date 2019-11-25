@@ -1,18 +1,19 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
-import { NavigationActions } from 'react-navigation';
-import { getUserInfo } from './index'
-function* fetchNews(params) {
-    console.log('params==>>>', params)
+import { GET, POST } from './service'
+import {logout} from './auth'
+function* fetchNews(props) {
+    console.log('params==>>>', props)
     try {
-        const json = yield getUserInfo()
-        console.log('json', json)
-        yield put({ type: "CURRENT_USER", payload: json, });
-        yield put({ type: "LOADER_STOP", payload: true });
+        const json = yield GET('isLoggedIn')
+        if (json.status == 1001) {
+            logout(props)
+        } else {
+            yield put({ type: "CURRENT_USER", payload: json, });
+            yield put({ type: "LOADER_STOP", payload: true });
+        }
     }
     catch (error) {
-        console.log('error====>>>', error, error.response)
         yield put({ type: "LOADER_STOP", payload: true });
-        yield put(NavigationActions.navigate({ routeName: 'IsLoggedIn' }))
     }
 }
 function* userInfo() {

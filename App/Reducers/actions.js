@@ -4,7 +4,7 @@ export const CurrentUser = (payload) => ({
 });
 export const Loading = (payload) => ({
     type: 'LOADER_START',
-    payload: '12345'
+    payload: payload
 });
 export const logoutUser = (payload) => ({
     type: 'LOGOUT_USER'

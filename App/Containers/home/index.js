@@ -12,12 +12,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { withNavigation,withNavigationFocus } from 'react-navigation'
 import UserList from './userList'
 class HomeScreen extends Component {
-  componentDidMount() {
-    // console.log(';ScreenTracking', ScreenTracking())
-  }
   GoToUserProfile() {
     this.props.navigation.openDrawer();
-    // this.props.navigation.navigate('UserProfile')
     console.log('user')
   }
   OpenDrawer() {
@@ -30,9 +26,6 @@ class HomeScreen extends Component {
   }
   Logout() {
     let app = this
-    /*AsyncStorage.removeItem('App_Auth_Token', (err) => {
-      app.props.navigation.navigate('AuthScreen')
-    });*/
   }
   render() {
     return (
