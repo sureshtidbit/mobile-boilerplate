@@ -5,14 +5,21 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    TextInput
+    Dimensions
 } from "react-native";
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
-import { CurrentUser } from '../../Reducers/actions'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { TextInput } from 'react-native-paper';
+const { width, height } = Dimensions.get('window')
+
+import { CurrentUser, Loading } from '../../Reducers/actions'
 let APIURL = 'https://edan-power.tidbitlab.com/api/login'
 class LoginScreen extends Component {
+    state = {
+        Password: ''
+    }
     GoToUserProfile() {
         this.props.navigation.openDrawer();
         // this.props.navigation.navigate('UserProfile')
@@ -43,49 +50,48 @@ class LoginScreen extends Component {
         }).then((response) => response.json())
             .then((responseData) => {
                 console.log(responseData)
-                // this.props.navigation.navigate('Home')
-                this.props.ReduxCurrentUser(responseData)
+                this.props.navigation.navigate('IsLoggedIn')
+                // this.props.ReduxLoading(responseData)
             }).catch(function (error) {
                 console.log(error)
             })
     }
-    GoToHomeScreen(){
+    GoToHomeScreen() {
+        this.MakeLogin()
         this.props.navigation.navigate('Home')
+    }
+    GoBack() {
+        this.props.navigation.goBack()
     }
     render() {
         return (
-            // <ScrollView>
-            //     <View>
-            //         <TouchableOpacity onPress={() => this.MakeLogin()} style={{ padding: 20, backgroundColor: '#F00' }}>
-            //             <Text>Login</Text>
-            //         </TouchableOpacity>
-            //         <Text>{JSON.stringify(this.props.currentUser)}</Text>
-            //     </View>
-            // </ScrollView>
-            <ScrollView contentContainerStyle={{ flex: 1 }}
-                style={{ height: '100%' }}
+            <ScrollView keyboardShouldPersistTaps={'handled'} showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flex: 1 }}
             >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={styles.MainView3}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => this.GoBack()} style={{ position: 'absolute', top: 15, left: 15, padding: 10 }}>
+                        <Ionicons onPress={() => this.GoBack()} name="md-arrow-back" size={24} color='#F00' />
+                    </TouchableOpacity>
+                    <View style={{ width: width / 1.3, height: 50, marginTop: 30 }}>
                         <TextInput
-                            style={styles.TextInputAll}
-                            placeholder="Email"
+                            mode={'flat'}
+                            style={{ width: undefined, backgroundColor: 'transparent', paddingHorizontal: 0 }}
+                            label='Mobile No.'
+                            secureTextEntry={false}
+                            value={this.state.Password}
+                            onChangeText={Password => this.setState({ Password })}
+                            theme={{ colors: { background: 'white', placeholder: '#000', text: '#000', primary: '#c41c00', underlineColor: 'transparent' } }}
                         />
-                        <TextInput
-                            style={styles.TextInputAll}
-                            placeholder="Password"
-                        />
-                        <View style={styles.LoginBtnView}>
-                            <TouchableOpacity onPress={()=>this.GoToHomeScreen()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtn}>Login</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtn}>Forgot Password</Text>
-                            </TouchableOpacity>
-                        </View>
+                    </View>
+                    <View style={{ marginTop: 35 }}>
+                        <TouchableOpacity style={{ width: width / 1.3, height: 50, padding: 10, backgroundColor: '#f00', alignItems: 'center', justifyContent: 'center', }}>
+                            <Text style={{ fontSize: 18, color: '#FFF', fontWeight: '500' }}>
+                                LOG IN
+                        </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
+            </ScrollView >
         );
     }
 }
@@ -102,7 +108,7 @@ const mapDispatchToProps = (dispatch) => {
     // Action
     return {
         // Increase Counter
-        ReduxCurrentUser: (payload) => dispatch(CurrentUser(payload)),
+        ReduxLoading: (payload) => dispatch(Loading(payload)),
         // Decrease Counter
         //   reduxDecreaseCounter: () => dispatch(decreaseCounter()),
         // Login
