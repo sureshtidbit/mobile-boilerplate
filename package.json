@@ -1,6 +1,6 @@
 {
-  "name": "mobileapp",
-  "version": "1.0.0",
+  "name": "tidbit-mobile-boilerplate",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
