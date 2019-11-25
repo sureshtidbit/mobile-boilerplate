@@ -11,7 +11,11 @@ import FIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { withNavigation } from 'react-navigation'
 import UserList from './userList'
+import ScreenTracking from './screenTracking'
 class HomeScreen extends Component {
+  componentDidMount() {
+    console.log(';ScreenTracking', ScreenTracking())
+  }
   GoToUserProfile() {
     this.props.navigation.openDrawer();
     // this.props.navigation.navigate('UserProfile')
@@ -29,18 +33,18 @@ class HomeScreen extends Component {
   render() {
     return (
       <Container>
-      <Header style={{ backgroundColor: '#F00' }}>
-        <Left>
-          <TouchableOpacity onPress={() => this.OpenDrawer()} style={{width: 32, height: 32}}>
-            <Image style={{ height:32, width: 32 }} source={require('../../Images/Side_menu_icon2x.png')} />
-          </TouchableOpacity>
-        </Left>
-        <Body>
-        </Body>
-        <Right>
-        </Right>
-      </Header>
-      <UserList></UserList>
+        <Header style={{ backgroundColor: '#F00' }}>
+          <Left>
+            <TouchableOpacity onPress={() => this.OpenDrawer()} style={{ width: 32, height: 32 }}>
+              <Image style={{ height: 32, width: 32 }} source={require('../../Images/Side_menu_icon2x.png')} />
+            </TouchableOpacity>
+          </Left>
+          <Body>
+          </Body>
+          <Right>
+          </Right>
+        </Header>
+        <UserList></UserList>
       </Container>
     );
   }
