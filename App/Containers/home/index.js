@@ -13,7 +13,7 @@ import { withNavigation,withNavigationFocus } from 'react-navigation'
 import UserList from './userList'
 class HomeScreen extends Component {
   componentDidMount() {
-    console.log(';ScreenTracking', ScreenTracking())
+    // console.log(';ScreenTracking', ScreenTracking())
   }
   GoToUserProfile() {
     this.props.navigation.openDrawer();
