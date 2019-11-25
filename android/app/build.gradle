@@ -146,7 +146,7 @@ android {
         applicationId "com.mobileapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode googleVer
+        versionCode 12
         versionName userVer
     }
     signingConfigs {
