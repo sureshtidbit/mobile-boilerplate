@@ -122,8 +122,7 @@ function Item({ title }) {
   return (
     <View key={title} style={styles.item} >
       <View style={styles.textUpView}>
-        {/* <Text style={styles.title}>{title.title}</Text> */}
-        <Image style={{ height:40, width: 40 }} source={require('./images/ppppp.png')} />
+        <Image style={ styles.ImageView} source={require('./images/ppppp.png')} />
       </View>
       <View style={styles.textUpView}>
         <Text style={styles.title} style={{ fontSize: 15,  fontWeight: 'bold',}} >{title.title2}</Text>
@@ -131,8 +130,6 @@ function Item({ title }) {
         <Text style={styles.title}>{title.title4}</Text>
       </View>
       <View style={styles.textUpView} style={{ flexDirection: 'row-reverse', flex: 1 }} >
-        {/* <Text style={styles.title}>{title.title6}</Text> */}
-        {/* <Text style={styles.title}>{title.title}</Text> */}
           <TouchableOpacity style={{ borderWidth: 1, borderColor: '#888', borderRadius: 50, height: 20, width: 20, justifyContent: 'center', alignItems: 'center', }} >
             <Icon name="angle-right" color="#888" />
           </TouchableOpacity>
@@ -154,7 +151,12 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-
+  textUpView:{
+    marginRight: 10,
+  },
+  ImageView: {
+    height:40, width: 40
+  },
   item: {
     flex: 1,
     flexDirection:'row',
