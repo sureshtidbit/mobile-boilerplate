@@ -1,4 +1,4 @@
-let APIURL = 'https://edan-power.tidbitlab.com/api/'
+import { APIURL } from '../../env'
 export const GET = (url) => {
     return fetch(APIURL + url, {
         method: 'GET',
