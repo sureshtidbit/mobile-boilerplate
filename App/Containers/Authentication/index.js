@@ -1,53 +1,72 @@
 import React, { Component } from "react";
-import { isSignedIn } from "../../Auth/islogged";
+import {
+    View,
+    StyleSheet,
+    Image,
+    Text,
+    StatusBar,
+    Dimensions,
+    TouchableOpacity
+} from "react-native";
 import { withNavigation } from 'react-navigation'
-import { ActivityIndicator, View, StyleSheet, Text } from 'react-native'
-import Login from './login'
-class AuthScreen extends React.Component {
-    constructor(props) {
-        super(props);
-
+const { width, height } = Dimensions.get('window')
+class AppSplash extends Component {
+    constructor() {
+        super();
         this.state = {
-            signedIn: false,
-            checkedSignIn: false,
-            AuthText: ''
-        };
-    }
+            onTab: 1,
 
-    componentDidMount() {
-        isSignedIn()
-            .then(res => {
-                console.log(res, 'response')
-                if (res.status == 1001) {
-                    this.setState({ AuthText: JSON.stringify(res), checkedSignIn: true })
-                } else {
-                    this.props.navigation.navigate('Home')
-                }
-            })
-            .catch(err => {
-                console.log(err, "An error occurred")
-                this.setState({ AuthText: JSON.stringify(err), checkedSignIn: true })
-            })
-    }
-
-    render() {
-        const { checkedSignIn, signedIn } = this.state;
-        if (!checkedSignIn) {
-            return <View style={styles.container1}>
-                <ActivityIndicator size='large' color="#00ff00" />
-            </View>;
         }
+    }
+    LetsPlay() {
+        this.props.navigation.navigate('Home')
+    }
+    LetsLogin(){
+        this.props.navigation.navigate('AppLoginScreen')
+    }
+    render() {
         return (
-            <Login></Login>
-        )
+            <View style={styles.linearGradient}>
+                <StatusBar translucent backgroundColor="transparent" />
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Image source={require('../../Images/sp2.jpg')} style={{ resizeMode: 'stretch', width: width, height: height }}></Image>
+                </View>
+                <View style={{ position: 'absolute', bottom: 0 }}>
+                    <View style={{ width: width, height: 110, flex: 1, alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => this.LetsPlay()} style={{borderWidth: 4,borderRadius: 2, borderColor:'green', width: width - 40, height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', }}>
+                            <Text style={{ fontSize: 18, color: '#FFF', fontWeight: '600' }}>
+                                Let's Play
+                        </Text>
+                        </TouchableOpacity>
+                        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-around' }}>
+                            <TouchableOpacity onPress={() => this.LetsLogin()} style={{ flex: 1, marginLeft: 20 }}>
+                                <Text style={{ fontSize: 14, color: '#FFF', fontWeight: '400', textAlign: 'left' }}>Have a referral code?</Text>
+                                <Text style={{ fontSize: 16, color: '#FFF', fontWeight: '600', textAlign: 'left' }}>Enter code</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.LetsLogin()} style={{ flex: 1, marginRight: 20 }}>
+                                <Text style={{ fontSize: 14, color: '#FFF', fontWeight: '400', textAlign: 'right' }}>Already a user?</Text>
+                                <Text style={{ fontSize: 16, color: '#FFF', fontWeight: '600', textAlign: 'right' }}>Log In</Text>
+                            </TouchableOpacity>
+                        </View>
+
+
+                    </View>
+                </View>
+            </View>
+        );
     }
 }
-export default withNavigation(AuthScreen);
+export default withNavigation(AppSplash);
 const styles = StyleSheet.create({
-    container1: {
-        backgroundColor: '#f1f2f7',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
-})
+    linearGradient: {
+        flex: 1
+    },
+    buttonText: {
+        fontSize: 18,
+        fontFamily: 'Gill Sans',
+        textAlign: 'center',
+        margin: 10,
+        color: '#ffffff',
+        backgroundColor: 'transparent',
+    },
+});

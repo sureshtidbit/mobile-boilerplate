@@ -1,21 +1,32 @@
 const INITIAL_STATE = {
     currentUser: {},
-    isLoggingIn: false
+    isLoggingIn: false,
+    loading: false
 };
 
- const AuthReducer = (state = INITIAL_STATE, action) => {
+const AuthReducer = (state = INITIAL_STATE, action) => {
     // reducer implementation
-    console.log(action.type,action)
+    console.log(action.type, action)
     switch (action.type) {
         case 'CURRENT_USER':
             return {
                 ...state,
                 currentUser: action.payload
             };
-            case 'LOGOUT_USER':
+        case 'LOGOUT_USER':
             return {
                 ...state,
                 currentUser: {}
+            };
+        case 'LOADER_START':
+            return {
+                ...state,
+                loading: action.payload
+            };
+        case 'LOADER_STOP':
+            return {
+                ...state,
+                loading: action.payload
             };
         default:
             return state;

@@ -11,10 +11,13 @@ import {
     ActivityIndicator,
     StatusBar
 } from "react-native";
-import { withNavigation } from 'react-navigation'
+import { withNavigation, withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
 import { Avatar } from 'react-native-paper';
+import { CurrentUser, Loading } from '../../Reducers/actions'
+
+import { connect } from 'react-redux';
 let APIURL = 'https://edan-power.tidbitlab.com/api/logout'
 
 class UserProfile extends Component {
@@ -66,6 +69,11 @@ class UserProfile extends Component {
                 console.log('error1', error)
             })
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.isFocused !== this.props.isFocused) {
+            console.log('==========', prevProps, this.props, prevProps.isFocused, this.props.isFocused)
+        }
+    }
     componentDidMount() {
         this.login()
     }
@@ -89,7 +97,8 @@ class UserProfile extends Component {
         }).then((response) => response.json())
             .then((responseData) => {
                 console.log(responseData)
-                this.props.navigation.navigate('IsLoggedIn')
+                this.props.ReduxCurrentUser(this.props)
+                // this.props.navigation.navigate('IsLoggedIn')
             }).catch(function (error) {
                 console.log(error)
             })
@@ -167,7 +176,22 @@ class UserProfile extends Component {
         );
     }
 }
-export default withNavigation(UserProfile);
+const mapStateToProps = (state) => {
+    // Redux Store --> Component
+    console.log(state, 'state profile')
+    return {
+        currentUser: state.authReducer.currentUser,
+    };
+};
+// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
+const mapDispatchToProps = (dispatch) => {
+    // Action
+    return {
+        // Increase Counter
+        ReduxCurrentUser: (payload) => dispatch(Loading(payload)),
+    };
+};
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(UserProfile))
 
 const styles = StyleSheet.create({
     container: {
