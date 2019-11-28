@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:292191280414:android:0d286dc805095158c3fd0f",
         "android_client_info": {
-          "package_name": "com.mobileapp"
+          "package_name": "com.tidbit.boilerplate"
         }
       },
       "oauth_client": [

@@ -6,9 +6,9 @@ import {
     TouchableOpacity,
     Text,
     TextInput,
-    AsyncStorage,
     Alert
 } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';

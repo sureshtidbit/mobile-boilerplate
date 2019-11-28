@@ -9,10 +9,12 @@ import {
     ScrollView,
     RefreshControl,
     ActivityIndicator,
-    StatusBar
+    StatusBar,
+    TextInput
 } from "react-native";
 import { withNavigation, withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
 import { Avatar } from 'react-native-paper';
 import { CurrentUser, Loading } from '../../Reducers/actions'
@@ -32,7 +34,8 @@ class UserProfile extends Component {
             ImageModal: false,
             images: [],
             UserPosts: [],
-            CurrentUserID: {}
+            CurrentUserID: {},
+            updateValue: true
         }
     }
     login() {
@@ -103,7 +106,9 @@ class UserProfile extends Component {
                 console.log(error)
             })
     }
-
+    UpdateName() {
+        this.setState({ updateValue: !this.state.updateValue })
+    }
     render() {
         const { width, height } = Dimensions.get('window')
         let userInfo = this.state.UserInfo
@@ -168,8 +173,16 @@ class UserProfile extends Component {
                             <TouchableOpacity style={{ padding: 20, backgroundColor: '#EEE' }} onPress={() => this.UserLogout()}>
                                 <Text>User Logout</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity style={{ borderColor: 'gray', borderWidth: 1, backgroundColor: '#EEE' }}>
+                                {this.state.updateValue ? <View style={{flexDirection:'row'}}>
+                                    <Text>Sandeep Kumar</Text>
+                                    <FontAwesome onPress={() => this.UpdateName()} name={'pencil'} size={24} color="#F00" />
+                                </View> :
+                                    <TextInput
+                                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                                        value={'my name'} />}
+                            </TouchableOpacity>
                         </View>
-                        {/* {this.FernderDevider()} */}
                     </View>
                 </ScrollView>
             </Container>
