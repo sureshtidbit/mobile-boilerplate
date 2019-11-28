@@ -118,11 +118,11 @@ const DATA = [
   
 ];
 const myIcon = <Icon name="rocket" size={30} color="#900" />;
-function Item({ title }) {
+function Item({ title,props }) {
   return (
     <View key={title.id} style={styles.item} >
       <View style={styles.textUpView}>
-        <Image style={{ height:40, width: 40 }} source={require('../../Images/a2.png')} />
+        <Image style={{ height:40, width: 40, marginRight: 10,}} source={require('../../Images/a2.png')} />
       </View>
       <View style={styles.textUpView}>
         <Text style={styles.title} style={{ fontSize: 15,  fontWeight: 'bold',}} >{title.title2}</Text>
@@ -130,7 +130,7 @@ function Item({ title }) {
         <Text style={styles.title}>{title.title4}</Text>
       </View>
       <View style={styles.textUpView} style={{ flexDirection: 'row-reverse', flex: 1 }} >
-          <TouchableOpacity style={{ borderWidth: 1, borderColor: '#888', borderRadius: 50, height: 20, width: 20, justifyContent: 'center', alignItems: 'center', }} >
+          <TouchableOpacity onPress={()=>props.GoToUserInfo(title)}  style={{ borderWidth: 1, borderColor: '#888', borderRadius: 50, height: 20, width: 20, justifyContent: 'center', alignItems: 'center', }} >
             <Icon name="angle-right" color="#888" />
           </TouchableOpacity>
       </View>
@@ -138,12 +138,13 @@ function Item({ title }) {
   );
 }
 
-export default function UserList() {
+export default function UserList(props) {
+  console.log(props,'props')
   return (
       <ScrollView>
         <FlatList
             data={DATA}
-            renderItem={({ item }) => <Item title={item} />}
+            renderItem={({ item }) => <Item title={item} props={props} />}
             keyExtractor={item => item.id}
         />
       </ScrollView>
