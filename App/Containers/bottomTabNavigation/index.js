@@ -5,7 +5,7 @@ import FIcon from 'react-native-vector-icons/FontAwesome';
 import FTRIcon from 'react-native-vector-icons/Feather';
 import MIcon from 'react-native-vector-icons/MaterialIcons'
 import UserProfile from '../profile/userProfile'
-import HomeScreen from '../home/index'
+import HomeScreen from '../home/homeRoute'
 import {
     createAppContainer,
 } from 'react-navigation';

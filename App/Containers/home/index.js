@@ -27,6 +27,11 @@ class HomeScreen extends Component {
   Logout() {
     let app = this
   }
+  GoToUserInfo(v){
+    console.log(v,'v')
+    this.props.navigation.navigate('UserInfoScreen')
+
+  }
   render() {
     return (
       <Container>
@@ -41,7 +46,7 @@ class HomeScreen extends Component {
           <Right>
           </Right>
         </Header>
-        <UserList></UserList>
+        <UserList props={this} GoToUserInfo={(v)=>this.GoToUserInfo(v)}></UserList>
       </Container>
     );
   }

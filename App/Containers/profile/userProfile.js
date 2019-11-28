@@ -135,7 +135,7 @@ class UserProfile extends Component {
                     <StatusBar backgroundColor='#F00' barStyle="light-content" />
                     <View style={styles.container}>
                         <Button style={{ position: 'absolute', left: 20, top: 15 }} transparent onPress={() => this.GoBack()} >
-                            <Icon name={Platform.OS == 'android' ? 'md-arrow-back' : 'ios-arrow-back'} size={24} color="#FFF" />
+                            <Icon name={Platform.OS == 'android' ? 'md-arrow-back' : 'ios-arrow-back'} size={24} color="#fff" />
                         </Button>
                         <View style={{ marginTop: 70 }}>
                             <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
