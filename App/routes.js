@@ -60,8 +60,9 @@ const AppDrawerNavigator = createDrawerNavigator({
     Home: { screen: HomeBottomTabBar }
 }, {
     contentComponent: SideDrawer,
-    drawerWidth: 300, headerMode: 'none',
-    overlayColor: '#0FFFFF',
+    drawerWidth: 250, 
+    headerMode: 'none',
+    overlayColor: '00FFFFF',
     drawerType: 'front',
     gesturesEnabled: true,
     transitionConfig: TransitionConfiguration,

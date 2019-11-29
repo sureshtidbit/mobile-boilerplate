@@ -1,3 +1,7 @@
 export const logout = (props) => {
-    props.payload.navigation.navigate('IsLoggedIn')
+    props.navigation.navigate('AppLoginScreen')
+};
+
+export const goHomeScreen = (props) => {
+    props.navigation.navigate('Home')
 };

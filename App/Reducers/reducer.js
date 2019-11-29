@@ -1,13 +1,21 @@
 const INITIAL_STATE = {
     currentUser: {},
     isLoggingIn: false,
-    loading: false
+    loading: false,
+    ErrorToaster: {
+        message: '',
+        toast: false
+    }
 };
 
 const AuthReducer = (state = INITIAL_STATE, action) => {
-    // reducer implementation
-    console.log(action.type, action)
+    console.log(action.type, action, 'ppppp')
     switch (action.type) {
+        case 'LOGGED_IN':
+            return {
+                ...state,
+                isLoggingIn: action.payload
+            };
         case 'CURRENT_USER':
             return {
                 ...state,
@@ -21,12 +29,22 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
         case 'LOADER_START':
             return {
                 ...state,
-                loading: action.payload
+                loading: true
             };
         case 'LOADER_STOP':
             return {
                 ...state,
-                loading: action.payload
+                loading: false
+            };
+        case 'ERROR_TOAST_SHOW':
+            return {
+                ...state,
+                ErrorToaster: action.payload
+            };
+        case 'ERROR_TOAST_HIDE':
+            return {
+                ...state,
+                ErrorToaster: action.payload
             };
         default:
             return state;

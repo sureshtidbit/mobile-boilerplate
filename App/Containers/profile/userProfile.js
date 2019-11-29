@@ -17,8 +17,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
 import { Avatar } from 'react-native-paper';
-import { CurrentUser, Loading } from '../../Reducers/actions'
-
+import { CurrentUser, logoutUser } from '../../Reducers/actions'
+import HorizontalSliderCard from '../../Components/Cards/horizontalSlidingCard'
 import { connect } from 'react-redux';
 let APIURL = 'https://edan-power.tidbitlab.com/api/logout'
 
@@ -89,22 +89,7 @@ class UserProfile extends Component {
         </View>
     }
     UserLogout() {
-        console.log("2333")
-        fetch(APIURL, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-        }).then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData)
-                this.props.ReduxCurrentUser(this.props)
-                // this.props.navigation.navigate('IsLoggedIn')
-            }).catch(function (error) {
-                console.log(error)
-            })
+        this.props.logoutUser({ API: 'logout', props: this.props })
     }
     UpdateName() {
         this.setState({ updateValue: !this.state.updateValue })
@@ -113,6 +98,43 @@ class UserProfile extends Component {
         const { width, height } = Dimensions.get('window')
         let userInfo = this.state.UserInfo
         let RenderPost = null
+        const DATA = [
+            {
+                id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+                title: 'First Item',
+                image: '../../Images/sp2.jpg'
+            },
+            {
+                id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+                title: 'Sefwefcond Item',
+                image: '../../Images/sp1.jpg'
+            },
+            {
+                id: '58694a0f-3da1-471f-bdfef96-145571e29d72',
+                title: 'Thifwefwrd Item',
+                image: '../../Images/sp2.jpg'
+            },
+            {
+                id: '58694a0f-3da1-471f-bd9fef6-145571e29d72',
+                title: 'Thirfwefwfd Item',
+                image: '../../Images/sp2.jpg'
+            },
+            {
+                id: '58694a0f-3da1-471f-bdfwf96-145571e29d72',
+                title: 'Tfwefwefhird Item',
+                image: '../../Images/sp1.jpg'
+            },
+            {
+                id: '58694a0f-3da1-471fweff-bd96-145571e29d72',
+                title: 'fwfw Item',
+                image: '../../Images/sp2.jpg'
+            },
+            {
+                id: '58694a0f-3fwda1-471f-bd96-145571e29d72',
+                title: 'Thfwfwfird Item',
+                image: '../../Images/sp2.jpg'
+            },
+        ];
         return (
             <Container>
                 <Header style={{ backgroundColor: '#F00' }}>
@@ -174,7 +196,7 @@ class UserProfile extends Component {
                                 <Text>User Logout</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={{ borderColor: 'gray', borderWidth: 1, backgroundColor: '#EEE' }}>
-                                {this.state.updateValue ? <View style={{flexDirection:'row'}}>
+                                {this.state.updateValue ? <View style={{ flexDirection: 'row' }}>
                                     <Text>Sandeep Kumar</Text>
                                     <FontAwesome onPress={() => this.UpdateName()} name={'pencil'} size={24} color="#F00" />
                                 </View> :
@@ -182,6 +204,7 @@ class UserProfile extends Component {
                                         style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                                         value={'my name'} />}
                             </TouchableOpacity>
+                            <HorizontalSliderCard data={DATA} />
                         </View>
                     </View>
                 </ScrollView>
@@ -201,7 +224,7 @@ const mapDispatchToProps = (dispatch) => {
     // Action
     return {
         // Increase Counter
-        ReduxCurrentUser: (payload) => dispatch(Loading(payload)),
+        logoutUser: (payload) => dispatch(logoutUser(payload)),
     };
 };
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(UserProfile))
