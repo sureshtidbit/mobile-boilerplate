@@ -1,4 +1,4 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { put, takeLatest, call, all } from 'redux-saga/effects';
 import { GET, POST } from './service'
 import { logout, goHomeScreen } from './auth'
 function* CheckUserLoggedIn(props) {
@@ -51,8 +51,8 @@ function* MakeUserLogin(props) {
                     toast: false
                 }
             });
-            yield put({ type: "LOADER_STOP", payload: false });
             goHomeScreen(props.payload.props)
+            yield put({ type: "LOADER_STOP", payload: false });
         }
     }
     catch (error) {
