@@ -1,26 +1,32 @@
 [
     {
-        "name": "first",
-        "icon": "1",
+        "name": "Home",
+        "icon": "home",
         "value": "1",
         "role": "1"
     },
     {
-        "name": "second",
+        "name": "Profile",
         "icon": "2",
         "value": "2",
         "role": "2"
     },
     {
-        "name": "third",
+        "name": "Organization",
         "icon": "3",
         "value": "3",
         "role": "3"
     },
     {
-        "name": "forth",
-        "icon": "4",
-        "value": "4",
-        "role": "4"
+        "name": "Settings",
+        "icon": "5",
+        "value": "5",
+        "role": "5"
+    },
+    {
+        "name": "Log Out",
+        "icon": "6",
+        "value": "6",
+        "role": "6"
     }
 ]
