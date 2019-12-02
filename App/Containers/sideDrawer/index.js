@@ -1,72 +1,117 @@
-import React, { Component } from 'react'
-import { ScrollView, Text,StyleSheet, Image, View, TouchableOpacity } from 'react-native'
-import { withNavigation } from 'react-navigation'
-import SideJson from '../../Themes/sideJson.json'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { Component } from 'react';
+import { NavigationActions, withNavigation } from 'react-navigation';
+import { StyleSheet, Text, View, TouchableOpacity, Linking, ScrollView, Platform, Share } from 'react-native';
+import { Thumbnail } from 'native-base'
+import { Avatar } from 'react-native-paper';
+import FIcon from 'react-native-vector-icons/Feather'
+let colors = { PRIMARY: '#ff5733' }
+var OnClickCheck = 0
+class SideMenu extends Component {
+    constructor() {
+        super();
+        this.state = {
+            toggle: true,
+            ColorArray: [colors.PRIMARY, '#757575', '#757575', '#757575', '#757575', '#757575'],
+            BorderColorsArray: [colors.PRIMARY, '#FFF', '#FFF', '#FFF', '#FFF', '#FFF'],
+            UserInfo: {}
+        }
+    }
+    NavigateDrawer(route, id) {
+        let ColorArray = this.state.ColorArray
+        let BorderColorsArray = this.state.BorderColorsArray
+        if (OnClickCheck != id) {
+            ColorArray[OnClickCheck] = '#757575'
+            BorderColorsArray[OnClickCheck] = '#FFF'
+            ColorArray[id] = colors.PRIMARY
+            BorderColorsArray[id] = colors.PRIMARY
+            OnClickCheck = id
+        }
+        this.setState({ ColorArray: ColorArray, BorderColorsArray: BorderColorsArray })
 
-class SideDrawer extends Component {
-    OpenDrawer() {
-        console.log('open===>>>')
+        console.log(route, id)
+        if (route == 'RateUs') {
+        } if (route == 'Share') {
+            this.props.navigation.closeDrawer();
+            this.onShare()
+        } else {
+            this.props.navigation.closeDrawer();
+            this.props.navigation.navigate(route)
+        }
+
     }
-    componentDidMount() {
-        console.log('SideJson===>>>>', SideJson)
+    FlatListItemSeparator = () => {
+        return <View style={styles.line} />
     }
-    NavigateDrawer(route){
-        console.log(route,'routes')
-        this.props.navigation.navigate(route)
+    GoToProfile() {
+        console.log('pro')
+        this.props.navigation.navigate('UserProfileView')
+    }
+    Logout() {
+
     }
     render() {
-        let DrawerRoutes = []
-        if(SideJson){
-            DrawerRoutes = SideJson
-        }
+        let ColorArray = this.state.ColorArray
+        let BorderColorsArray = this.state.BorderColorsArray
         return (
-            <View style={{backgroundColor: '#fff', height: '100%'}}>
-                <View style={{backgroundColor: 'red'}}>
-                    <Image style={{height: 80, width: 100, margin: 8, resizeMode:'contain' }} source={require('../../Images/logo.png')}/>
-                </View>
-                <View style={{paddingTop: 0, paddingLeft: 10}}>
-                    {DrawerRoutes.map((v,i)=>{
-                        return(
-                            <TouchableOpacity onPress={() => this.NavigateDrawer('UserProfile')} key={i} style={{padding: 0, color: '#000', margin: 10 }}>
-                                <Text style={{fontSize: 16}}>{v.name}</Text>
-                            </TouchableOpacity>
-                        )
-                    })}
-                </View>
-                <View style={styles.social}>
-                    <View style={styles.icon}>
-                        <Icon name="facebook-f" color="#fff" style={{fontSize:16, padding: 10}} />
-                        <Icon name="twitter" color="#fff" style={{fontSize:16, padding: 10}}  />
-                        <Icon name="youtube-play" color="#fff" style={{fontSize:16, padding: 10}}  />
-                        <Icon name="behance" color="#fff" style={{fontSize:16, padding: 10}}  />
-                        <Icon name="dribbble" color="#fff" style={{fontSize:16, padding: 10}}  />
+            <ScrollView>
+                <View style={{ flex: 1 }}>
+                    <TouchableOpacity onPress={() => this.GoToProfile()} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 20 }}>
+                        <Avatar.Image size={80} source={require('../../Images/sp2.jpg')} />
+                        <Text style={{ marginTop: 10, fontSize: 18, fontWeight: '700' }}>Shreley Satiya</Text>
+                        <Text style={{ fontSize: 14, fontWeight: '400' }}>shreleysatiya@gmail.com</Text>
+                    </TouchableOpacity>
+                    {this.FlatListItemSeparator()}
+                    <View style={{ marginTop: 15, width: 300 }}>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('Home', 0)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[0], borderLeftWidth: 4 }}>
+                            <FIcon name="home" size={24} color={ColorArray[0]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[0] }}>Home</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('SideBarForApp', 1)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[1], borderLeftWidth: 4 }}>
+                            <FIcon name="alert-circle" size={24} color={ColorArray[1]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[1] }}>About</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('AppSetting', 2)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[2], borderLeftWidth: 4 }}>
+                            <FIcon name="settings" size={24} color={ColorArray[2]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[2] }}>Setting</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('ChangePassword', 3)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[3], borderLeftWidth: 4 }}>
+                            <FIcon name="message-square" size={24} color={ColorArray[3]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[3] }}>Password</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('RateUs', 4)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[4], borderLeftWidth: 4 }}>
+                            <FIcon name="star" size={24} color={ColorArray[4]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[4] }}>Rate us</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('Share', 5)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[5], borderLeftWidth: 4 }}>
+                            <FIcon name="share" size={24} color={ColorArray[5]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[5] }}>Share</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.NavigateDrawer('Share', 5)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[5], borderLeftWidth: 4 }}>
+                            <FIcon name="log-out" size={24} color='#757575' />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: '#757575' }}>Log Out</Text>
+                        </TouchableOpacity>
                     </View>
+                    {/* <View style={{ position: 'absolute', bottom: 0, width: 300 }}>
+                        <View style={styles.line} />
+                        <TouchableOpacity onPress={() => this.Logout()} style={{
+                            flexDirection: 'row',
+                            borderRadius: 5, alignItems: 'center',
+                            paddingTop: 20, paddingBottom: 20, paddingLeft: 20
+                        }}>
+                            <FIcon name="log-out" size={24} color='#757575' />
+                            <Text style={{ paddingLeft: 30, fontSize: 18, fontWeight: '700', color: '#757575' }}>Log Out</Text>
+                        </TouchableOpacity>
+                    </View> */}
                 </View>
-            </View>
-        )
+            </ScrollView>
+        );
     }
 }
-
-export default withNavigation(SideDrawer)
-const styles = StyleSheet.create(
-    {
-        social:
-         {
-             flex: 1,
-             justifyContent: 'flex-end', 
-             alignItems: 'center' ,
-             flexDirection: 'column',
-             position: 'relative',
-         },
-         icon:{
-             flex: 1,
-             flexDirection:'row',
-             position: 'absolute',
-             bottom:0,
-             backgroundColor: 'red',
-             width: '100%',
-             justifyContent: 'center',
-             padding: 5
-         }
-    });
+export default withNavigation(SideMenu);
+const styles = StyleSheet.create({
+    line: {
+        height: 0.5,
+        width: 300,
+        backgroundColor: "#BBB"
+    }
+});

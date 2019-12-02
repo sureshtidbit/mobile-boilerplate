@@ -49,7 +49,7 @@ const AuthStack = createStackNavigator(
 
     },
     {
-        initialRouteName: 'AppLoginScreen',
+        initialRouteName: 'AppSplashScreen',
         headerMode: 'none',
         navigationOptions: {
             headerVisible: false,

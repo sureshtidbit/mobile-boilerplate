@@ -6,16 +6,21 @@ import {
     TouchableOpacity,
     Text,
     TextInput,
-    AsyncStorage,
     Alert
 } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
-import { CurrentUser } from '../../Reducers/actions'
-import firebase, { Notification, NotificationOpen } from 'react-native-firebase';
-let APIURL = 'https://edan-power.tidbitlab.com/api/login'
+import { loginAction } from '../../Reducers/actions'
+import firebase from 'react-native-firebase';
+import { Progress } from '../ProgressDialog/index'
+import ErrorToaster from '../../Components/alerts/error'
 class LoginScreen extends Component {
+    state = {
+        Password: '',
+        Email: ''
+    }
     GoToUserProfile() {
         this.props.navigation.openDrawer();
         // this.props.navigation.navigate('UserProfile')
@@ -23,12 +28,6 @@ class LoginScreen extends Component {
     }
     OpenDrawer() {
         this.props.navigation.openDrawer();
-    }
-    Logout() {
-        let app = this
-        /*AsyncStorage.removeItem('App_Auth_Token', (err) => {
-          app.props.navigation.navigate('AuthScreen')
-        });*/
     }
     async getFCMToken() {
         let fcmToken = await AsyncStorage.getItem('worddiagnostics_fcm_token');
@@ -142,44 +141,20 @@ class LoginScreen extends Component {
         this.createNotificationListeners();
     }
     MakeLogin() {
+        const { Email, Password } = this.state
         let bodyData = {
-            email: "mansi@tidbitlab.com",
-            password: "123456"
+            email: Email,
+            password: Password
         }
-        fetch(APIURL, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify(bodyData)
-        }).then((response) => response.json())
-            .then((responseData) => {
-                console.log(responseData)
-                // this.props.navigation.navigate('Home')
-                this.props.ReduxCurrentUser(responseData)
-            }).catch(function (error) {
-                console.log(error)
-            })
-    }
-    GoToHomeScreen() {
-        this.props.navigation.navigate('Home')
+        this.props.loginAction({ data: JSON.stringify(bodyData), props: this.props })
     }
     componentWillUnmount() {
         this.notificationListener;
         this.notificationOpenedListener;
     }
+
     render() {
         return (
-            // <ScrollView>
-            //     <View>
-            //         <TouchableOpacity onPress={() => this.MakeLogin()} style={{ padding: 20, backgroundColor: '#F00' }}>
-            //             <Text>Login</Text>
-            //         </TouchableOpacity>
-            //         <Text>{JSON.stringify(this.props.currentUser)}</Text>
-            //     </View>
-            // </ScrollView>
             <ScrollView contentContainerStyle={{ flex: 1 }}
                 style={{ height: '100%' }}
             >
@@ -187,14 +162,17 @@ class LoginScreen extends Component {
                     <View style={styles.MainView3}>
                         <TextInput
                             style={styles.TextInputAll}
+                            onChangeText={(v) => this.setState({ Email: v })}
                             placeholder="Email"
                         />
                         <TextInput
                             style={styles.TextInputAll}
                             placeholder="Password"
+                            onChangeText={(v) => this.setState({ Password: v })}
+                            secureTextEntry={true}
                         />
                         <View style={styles.LoginBtnView}>
-                            <TouchableOpacity onPress={() => this.GoToHomeScreen()} style={styles.TouchableOpacityBtn}>
+                            <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
                                 <Text style={styles.LoginBtn}>Login</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.TouchableOpacityBtn}>
@@ -202,32 +180,25 @@ class LoginScreen extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
+                    {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
                 </View>
             </ScrollView>
         );
     }
 }
-// Map State To Props (Redux Store Passes State To Component)
 const mapStateToProps = (state) => {
-    // Redux Store --> Component
     console.log(state, 'state')
     return {
-        currentUser: state.authReducer.currentUser,
+        loading: state.authReducer.loading,
+        ErrorToaster: state.authReducer.ErrorToaster,
     };
 };
-// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
 const mapDispatchToProps = (dispatch) => {
-    // Action
     return {
-        // Increase Counter
-        ReduxCurrentUser: (payload) => dispatch(CurrentUser(payload)),
-        // Decrease Counter
-        //   reduxDecreaseCounter: () => dispatch(decreaseCounter()),
-        // Login
-        //   reduxLogin: (trueFalse) => dispatch(login(trueFalse)),
+        loginAction: (payload) => dispatch(loginAction(payload)),
     };
 };
-// Exports
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(LoginScreen))
 
 const styles = StyleSheet.create({

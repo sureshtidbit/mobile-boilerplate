@@ -20,7 +20,7 @@ export const POST = (url, Body) => {
             'Content-Type': 'application/json'
         },
         credentials: 'include',
-        body: JSON.stringify(Body)
+        body: Body
     }).then((response) => response.json())
         .then((responseData) => {
             return responseData

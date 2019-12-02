@@ -1,4 +1,4 @@
-package com.mobileapp;
+package com.tidbit.boilerplate;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

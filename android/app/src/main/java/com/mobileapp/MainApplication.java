@@ -1,4 +1,4 @@
-package com.mobileapp;
+package com.tidbit.boilerplate;
 
 import android.app.Application;
 import io.invertase.firebase.RNFirebasePackage;
