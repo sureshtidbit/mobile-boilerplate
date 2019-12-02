@@ -6,7 +6,7 @@ import { Avatar } from 'react-native-paper';
 import { logoutUser } from '../../Reducers/actions'
 import { connect } from 'react-redux';
 import FIcon from 'react-native-vector-icons/Feather'
-let colors = { PRIMARY: '#ff5733' }
+let colors = { PRIMARY: '#22c1c3' }
 var OnClickCheck = 0
 class SideMenu extends Component {
     constructor() {

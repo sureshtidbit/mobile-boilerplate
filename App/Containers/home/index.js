@@ -35,7 +35,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: '#F00' }}>
+        <Header style={{ backgroundColor: '#22c1c3' }}>
           <Left>
             <TouchableOpacity onPress={() => this.OpenDrawer()} style={{ width: 32, height: 32 }}>
               <Image style={{ height: 32, width: 32 }} source={require('../../Images/Side_menu_icon2x.png')} />

@@ -5,9 +5,9 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    TextInput,
     Alert
 } from "react-native";
+import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation } from 'react-navigation'
@@ -16,10 +16,11 @@ import { loginAction } from '../../Reducers/actions'
 import firebase from 'react-native-firebase';
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
+
 class LoginScreen extends Component {
     state = {
         Password: '',
-        Email: ''
+        Email: '',
     }
     GoToUserProfile() {
         this.props.navigation.openDrawer();
@@ -155,28 +156,31 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={{ flex: 1 }}
-                style={{ height: '100%' }}
-            >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ScrollView contentContainerStyle={{ flex: 1, height: '100%'  }}>
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-start'}}>
+                    <Text style={ styles.loginText } >Login</Text>
                     <View style={styles.MainView3}>
                         <TextInput
                             style={styles.TextInputAll}
                             onChangeText={(v) => this.setState({ Email: v })}
-                            placeholder="Email"
+                            label="Email"
+                            value={this.state.Email}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3' , underlineColor: 'transparent' } }}
                         />
                         <TextInput
                             style={styles.TextInputAll}
-                            placeholder="Password"
+                            label="Password"
                             onChangeText={(v) => this.setState({ Password: v })}
                             secureTextEntry={true}
+                            value={this.state.Password}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3' , underlineColor: 'transparent' } }}
                         />
                         <View style={styles.LoginBtnView}>
                             <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
                                 <Text style={styles.LoginBtn}>Login</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtn}>Forgot Password</Text>
+                                <Text style={styles.LoginBtnPSWD}>Forgot Password</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -202,7 +206,9 @@ const mapDispatchToProps = (dispatch) => {
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(LoginScreen))
 
 const styles = StyleSheet.create({
-
+    loginText: {
+        fontSize: 20, fontWeight: '700', textAlign: 'left', marginLeft: 20, 
+    },
     ScrollView1: {
         flex: 1,
         backgroundColor: '#EEE'
@@ -215,39 +221,43 @@ const styles = StyleSheet.create({
     },
     MainView3: {
         backgroundColor: '#fff',
-        padding: 20,
-        borderRadius: 5,
-        borderRadius: 4,
-        borderWidth: 0.5,
-        borderColor: '#888',
-        width: '80%',
+        width: '90%',
         margin: 20
     },
     TextInputAll: {
-        height: 40,
         borderRadius: 4,
         borderWidth: 0.5,
         borderColor: '#d6d7da',
-        paddingLeft: 15,
         marginTop: 15,
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+        padding: 0,
+        margin: 0,
+        paddingHorizontal: 0
     },
     LoginBtnView: {
         marginTop: 15,
-        flexDirection: 'row',
     },
     TouchableOpacityBtn: {
-        marginRight: 15,
     },
     LoginBtn: {
-        color: 'blue',
-        fontSize: 12,
+        fontSize: 16,
         color: '#fff',
-        backgroundColor: '#3f51b5',
-        padding: 10,
+        backgroundColor: '#22c1c3',
+        paddingTop: 15,
+        paddingBottom: 15,
+        textAlign: 'center',
+        marginTop: 30,
+    },
+    LoginBtnPSWD: {
+        fontSize: 16,
+        color: '#888',
+        backgroundColor: 'transparent',
         paddingTop: 5,
         paddingBottom: 5,
-        borderRadius: 4,
         textAlign: 'center',
+        marginTop: 30,
+        textDecorationLine: 'underline',
     },
 
 });

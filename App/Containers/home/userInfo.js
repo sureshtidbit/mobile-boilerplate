@@ -52,10 +52,10 @@ class UserInfoScreen extends Component {
   render() {
     return (
       <Container>
-        <Header style={{ backgroundColor: '#F00' }}>
+        <Header style={{ backgroundColor: '#22c1c3' }}>
           <Left>
             <TouchableOpacity transparent onPress={() => this.GoBack()} style={{ width: 32, height: 32 }}>
-            <Icon name={Platform.OS == 'android' ? 'md-arrow-back' : 'ios-arrow-back'} size={24} color="#000" />
+            <Icon name={Platform.OS == 'android' ? 'md-arrow-back' : 'ios-arrow-back'} size={24} color="#fff" />
             </TouchableOpacity>
           </Left>
           <Body>
