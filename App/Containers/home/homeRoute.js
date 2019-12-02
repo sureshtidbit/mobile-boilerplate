@@ -50,4 +50,19 @@ const HomeStack = createStackNavigator(
         },
         transitionConfig: TransitionConfiguration,
     })
+HomeStack.navigationOptions = ({ navigation }) => {
+    let tabBarVisible = true;
+    if (navigation.state.routes.length > 1) {
+        navigation.state.routes.map(route => {
+            if (route.routeName === "UserInfoScreen") {
+                tabBarVisible = false;
+            } else {
+                tabBarVisible = true;
+            }
+        });
+    }
+    return {
+        tabBarVisible
+    };
+};
 export default HomeStack;

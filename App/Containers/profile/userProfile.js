@@ -213,17 +213,13 @@ class UserProfile extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    // Redux Store --> Component
     console.log(state, 'state profile')
     return {
         currentUser: state.authReducer.currentUser,
     };
 };
-// Map Dispatch To Props (Dispatch Actions To Reducers. Reducers Then Modify The Data And Assign It To Your Props)
 const mapDispatchToProps = (dispatch) => {
-    // Action
     return {
-        // Increase Counter
         logoutUser: (payload) => dispatch(logoutUser(payload)),
     };
 };

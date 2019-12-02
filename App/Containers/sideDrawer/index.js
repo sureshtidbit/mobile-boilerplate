@@ -3,6 +3,8 @@ import { NavigationActions, withNavigation } from 'react-navigation';
 import { StyleSheet, Text, View, TouchableOpacity, Linking, ScrollView, Platform, Share } from 'react-native';
 import { Thumbnail } from 'native-base'
 import { Avatar } from 'react-native-paper';
+import { logoutUser } from '../../Reducers/actions'
+import { connect } from 'react-redux';
 import FIcon from 'react-native-vector-icons/Feather'
 let colors = { PRIMARY: '#ff5733' }
 var OnClickCheck = 0
@@ -32,7 +34,7 @@ class SideMenu extends Component {
         if (route == 'RateUs') {
         } if (route == 'Share') {
             this.props.navigation.closeDrawer();
-            this.onShare()
+            // this.onShare()
         } else {
             this.props.navigation.closeDrawer();
             this.props.navigation.navigate(route)
@@ -46,8 +48,8 @@ class SideMenu extends Component {
         console.log('pro')
         this.props.navigation.navigate('UserProfileView')
     }
-    Logout() {
-
+    LogoutUser() {
+        this.props.logoutUser({ API: 'logout', props: this.props })
     }
     render() {
         let ColorArray = this.state.ColorArray
@@ -86,7 +88,7 @@ class SideMenu extends Component {
                             <FIcon name="share" size={24} color={ColorArray[5]} />
                             <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[5] }}>Share</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.NavigateDrawer('Share', 5)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[5], borderLeftWidth: 4 }}>
+                        <TouchableOpacity onPress={() => this.LogoutUser()} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[5], borderLeftWidth: 4 }}>
                             <FIcon name="log-out" size={24} color='#757575' />
                             <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: '#757575' }}>Log Out</Text>
                         </TouchableOpacity>
@@ -107,7 +109,18 @@ class SideMenu extends Component {
         );
     }
 }
-export default withNavigation(SideMenu);
+const mapStateToProps = (state) => {
+    console.log(state, 'state sidebar')
+    return {
+        currentUser: state.authReducer.currentUser,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutUser: (payload) => dispatch(logoutUser(payload)),
+    };
+};
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(SideMenu))
 const styles = StyleSheet.create({
     line: {
         height: 0.5,
