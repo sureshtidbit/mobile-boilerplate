@@ -5,7 +5,9 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    Platform
+    Platform,
+    Image,
+    ImageBackground
 } from "react-native";
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -30,10 +32,14 @@ class ForgotPasswordScreen extends Component {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+                <ImageBackground source={require('../../Images/forgot-passwor-BG2.png')} style={{ position: 'absolute', width: '100%', height: 100, resizeMode: 'contain', top: 0 }}>
+                </ImageBackground>
+                <ImageBackground source={require('../../Images/forgot-passwor-BG.png')} style={{ position: 'absolute', width: '100%', height: 100, resizeMode: 'contain', bottom: 0, }}>
+                </ImageBackground>
                     <Ionicons
                         onPress={() => this.GoBackToHome()}
                         name={Platform.OS === 'android' ? "md-arrow-back" : "ios-arrow-round-back"}
-                        color='#22c1c3'
+                        color='#fff'
                         size={32}
                         style={{ backgroundColor: 'transparent', position: 'absolute', padding: 10, left: 10, top: 10 }}
                     />
@@ -44,16 +50,18 @@ class ForgotPasswordScreen extends Component {
                             onChangeText={(v) => this.setState({ Email: v })}
                             label="Email"
                             value={this.state.Email}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1592ff', underlineColor: 'transparent' } }}
                         />
                         <View style={styles.LoginBtnView}>
                             <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtn}>Login</Text>
+                                <Text style={styles.LoginBtn}>Submit</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
+                    
                     <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
                     {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
+                    
                 </View>
             </ScrollView>
         );
@@ -76,7 +84,7 @@ export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(Forgo
 const styles = StyleSheet.create({
     loginText: {
         fontSize: 20, fontWeight: '700', textAlign: 'left', marginLeft: 20,
-        color: '#22c1c3'
+        color: '#1592ff'
     },
     ScrollView1: {
         flex: 1,
@@ -108,10 +116,11 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     TouchableOpacityBtn: {
-        borderRadius: 5,
-        backgroundColor: '#22c1c3',
+        borderRadius: 0,
+        backgroundColor: '#1592ff',
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 30,
     },
     LoginBtn: {
         fontSize: 16,

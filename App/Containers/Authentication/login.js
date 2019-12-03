@@ -5,7 +5,9 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    Alert
+    Alert,
+    Image,
+    ImageBackground
 } from "react-native";
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -159,15 +161,22 @@ class LoginScreen extends Component {
     render() {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <Text style={styles.loginText} >Login</Text>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ImageBackground source={require('../../Images/forgot-passwor-BG2.png')} style={{ position: 'absolute', width: '100%', height: 100, resizeMode: 'contain', top: 0 }}>
+                </ImageBackground>
+                <ImageBackground source={require('../../Images/forgot-passwor-BG.png')} style={{ position: 'absolute', width: '100%', height: 100, resize: 'scale', bottom: 0, }}>
+                </ImageBackground>
+                    <View style={{  justifyContent: 'center', alignItems: 'center', alignContent:'center', }}>
+                        <Image source={require('../../Images/login-logo.png')} style={{ height: 150, justifyContent: 'center', alignItems: 'center', alignContent:'center', width: 150, resizeMode: 'contain',}} ></Image>
+                    </View>
+                    {/* <Text style={styles.loginText} >Login</Text> */}
                     <View style={styles.MainView3}>
                         <TextInput
                             style={styles.TextInputAll}
                             onChangeText={(v) => this.setState({ Email: v })}
                             label="Email"
                             value={this.state.Email}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1592ff', underlineColor: 'transparent' } }}
                         />
                         <TextInput
                             style={styles.TextInputAll}
@@ -175,14 +184,14 @@ class LoginScreen extends Component {
                             onChangeText={(v) => this.setState({ Password: v })}
                             secureTextEntry={true}
                             value={this.state.Password}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1592ff', underlineColor: 'transparent' } }}
                         />
                         <View style={styles.LoginBtnView}>
                             <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
                                 <Text style={styles.LoginBtn}>Login</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.ForgotPasswordMethod()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtnPSWD}>Forgot Password</Text>
+                                <Text style={styles.LoginBtnPSWD}>Forgot Password?</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -190,6 +199,7 @@ class LoginScreen extends Component {
                     {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
                 </View>
             </ScrollView>
+      
         );
     }
 }
@@ -209,7 +219,8 @@ export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(Login
 
 const styles = StyleSheet.create({
     loginText: {
-        fontSize: 20, fontWeight: '700', textAlign: 'left', marginLeft: 20,
+        fontSize: 20, fontWeight: '700', 
+        color: '#1592ff'
     },
     ScrollView1: {
         flex: 1,
@@ -222,7 +233,7 @@ const styles = StyleSheet.create({
         height: 233
     },
     MainView3: {
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         width: '90%',
         margin: 20
     },
@@ -245,7 +256,7 @@ const styles = StyleSheet.create({
     LoginBtn: {
         fontSize: 16,
         color: '#fff',
-        backgroundColor: '#22c1c3',
+        backgroundColor: '#1592ff',
         paddingTop: 15,
         paddingBottom: 15,
         textAlign: 'center',
@@ -253,7 +264,7 @@ const styles = StyleSheet.create({
     },
     LoginBtnPSWD: {
         fontSize: 16,
-        color: '#888',
+        color: '#000',
         backgroundColor: 'transparent',
         paddingTop: 5,
         paddingBottom: 5,
