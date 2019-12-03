@@ -6,6 +6,7 @@ import { Animated, Easing, Platform } from 'react-native';
 
 import UserInfoScreen from './userInfo'
 import UserListScreen from './index'
+import ResetPassword from '../sideDrawer/resetPassword'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -40,7 +41,7 @@ const HomeStack = createStackNavigator(
     {
         UserInfoScreen: { screen: UserInfoScreen },
         UserListScreen: { screen: UserListScreen },
-
+        ResetPassword: { screen: ResetPassword }
     },
     {
         initialRouteName: 'UserListScreen',
@@ -54,7 +55,7 @@ HomeStack.navigationOptions = ({ navigation }) => {
     let tabBarVisible = true;
     if (navigation.state.routes.length > 1) {
         navigation.state.routes.map(route => {
-            if (route.routeName === "UserInfoScreen") {
+            if (route.routeName === "UserInfoScreen" || route.routeName == 'ResetPassword') {
                 tabBarVisible = false;
             } else {
                 tabBarVisible = true;

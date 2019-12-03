@@ -31,7 +31,8 @@ class SideMenu extends Component {
         this.setState({ ColorArray: ColorArray, BorderColorsArray: BorderColorsArray })
 
         console.log(route, id)
-        if (route == 'RateUs') {
+        if (route == "Password") {
+            this.props.navigation.navigate('ResetPassword')
         } if (route == 'Share') {
             this.props.navigation.closeDrawer();
             // this.onShare()
@@ -39,7 +40,6 @@ class SideMenu extends Component {
             this.props.navigation.closeDrawer();
             this.props.navigation.navigate(route)
         }
-
     }
     FlatListItemSeparator = () => {
         return <View style={styles.line} />
