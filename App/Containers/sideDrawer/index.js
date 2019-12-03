@@ -46,7 +46,7 @@ class SideMenu extends Component {
     }
     GoToProfile() {
         console.log('pro')
-        this.props.navigation.navigate('UserProfileView')
+        this.props.navigation.navigate('UserProfile')
     }
     LogoutUser() {
         this.props.logoutUser({ API: 'logout', props: this.props })

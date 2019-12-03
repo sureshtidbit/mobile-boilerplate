@@ -96,7 +96,7 @@ class UserProfile extends Component {
         this.setState({ updateValue: !this.state.updateValue })
     }
     FocusOnText(index) {
-        this.FocusTextBox[index+1].focus()
+        this.FocusTextBox[index + 1].focus()
     }
     render() {
         const { width, height } = Dimensions.get('window')
@@ -167,8 +167,9 @@ class UserProfile extends Component {
                             <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                 <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={require('../../Images/a2.png')} />
                             </TouchableOpacity>
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Sandeep Kumar</Text>
+                            <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 30 }}>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{this.props.UserInfo.success ? this.props.UserInfo.name : null}</Text>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{this.props.UserInfo.success ? this.props.UserInfo.email : null}</Text>
                             </View>
                             <View style={{ borderTopColor: '#EEE', borderTopWidth: 1, flexDirection: 'row', flex: 1, alignItems: 'center', marginTop: 40, marginBottom: 20, borderBottomColor: '#EEE', borderBottomWidth: 1 }}>
                                 <TouchableOpacity style={{ paddingTop: 10, paddingBottom: 10, flex: 1, alignItems: 'center', borderRightColor: '#EEE', borderRightWidth: 1 }}>
@@ -210,11 +211,6 @@ class UserProfile extends Component {
                             </TouchableOpacity>
                             <HorizontalSliderCard data={DATA} />
                         </View>
-                        {DATA.map((item, i) => {
-                            return (
-                                <TextInput onSubmitEditing={() => this.FocusOnText(i)} blurOnSubmit={false} ref={(input) => { this.FocusTextBox[i] = input }} placeholder={item.title} />
-                            )
-                        })}
                     </View>
                 </ScrollView>
             </Container>
@@ -224,7 +220,7 @@ class UserProfile extends Component {
 const mapStateToProps = (state) => {
     console.log(state, 'state profile')
     return {
-        currentUser: state.authReducer.currentUser,
+        UserInfo: state.authReducer.UserInfo,
     };
 };
 const mapDispatchToProps = (dispatch) => {
