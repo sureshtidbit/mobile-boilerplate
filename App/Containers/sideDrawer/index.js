@@ -6,6 +6,7 @@ import { Avatar } from 'react-native-paper';
 import { logoutUser } from '../../Reducers/actions'
 import { connect } from 'react-redux';
 import FIcon from 'react-native-vector-icons/Feather'
+import Icon from 'react-native-vector-icons'
 let colors = { PRIMARY: '#ff5733' }
 var OnClickCheck = 0
 class SideMenu extends Component {
@@ -51,9 +52,35 @@ class SideMenu extends Component {
     LogoutUser() {
         this.props.logoutUser({ API: 'logout', props: this.props })
     }
+    RenderSideBar() {
+        let ColorArray = this.state.ColorArray
+        let BorderColorsArray = this.state.BorderColorsArray
+        let vcsvvs = null
+        console.log('ffwf=====>>>', this.props.UserInfo)
+        if (this.props.UserInfo) {
+            console.log('11')
+            if (this.props.UserInfo.role) {
+                console.log('22')
+                if (this.props.UserInfo.role.mobileContainers) {
+                    console.log('33')
+                    vcsvvs = this.props.UserInfo.role.mobileContainers.map((item, i) => {
+                        return (<TouchableOpacity key={i} onPress={() => this.NavigateDrawer(item.name, i)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[i], borderLeftWidth: 4 }}>
+                            <FIcon name={item.icon} size={24} color={ColorArray[i]} />
+                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[i] }}>{item.name}</Text>
+                        </TouchableOpacity>)
+                    })
+                }
+            }
+        }
+        console.log('ffwf====fffff=>>>', vcsvvs)
+        return vcsvvs;
+    }
     render() {
         let ColorArray = this.state.ColorArray
         let BorderColorsArray = this.state.BorderColorsArray
+        let MobileRoutes = []
+        console.log('MobileRoutes', MobileRoutes)
+
         return (
             <ScrollView>
                 <View style={{ flex: 1 }}>
@@ -64,7 +91,13 @@ class SideMenu extends Component {
                     </TouchableOpacity>
                     {this.FlatListItemSeparator()}
                     <View style={{ marginTop: 15, width: 300 }}>
-                        <TouchableOpacity onPress={() => this.NavigateDrawer('Home', 0)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[0], borderLeftWidth: 4 }}>
+                        {/* {MobileRoutes.length > 0 ? MobileRoutes.map(() => {
+                            return (
+                                <Text>Hi</Text>
+                            )
+                        }) : null} */}
+                        {this.RenderSideBar()}
+                        {/* <TouchableOpacity onPress={() => this.NavigateDrawer('Home', 0)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[0], borderLeftWidth: 4 }}>
                             <FIcon name="home" size={24} color={ColorArray[0]} />
                             <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[0] }}>Home</Text>
                         </TouchableOpacity>
@@ -87,8 +120,8 @@ class SideMenu extends Component {
                         <TouchableOpacity onPress={() => this.NavigateDrawer('Share', 5)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[5], borderLeftWidth: 4 }}>
                             <FIcon name="share" size={24} color={ColorArray[5]} />
                             <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[5] }}>Share</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.LogoutUser()} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[5], borderLeftWidth: 4 }}>
+                        </TouchableOpacity> */}
+                        <TouchableOpacity onPress={() => this.LogoutUser()} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20 }}>
                             <FIcon name="log-out" size={24} color='#757575' />
                             <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: '#757575' }}>Log Out</Text>
                         </TouchableOpacity>
@@ -112,7 +145,7 @@ class SideMenu extends Component {
 const mapStateToProps = (state) => {
     console.log(state, 'state sidebar')
     return {
-        currentUser: state.authReducer.currentUser,
+        UserInfo: state.authReducer.UserInfo,
     };
 };
 const mapDispatchToProps = (dispatch) => {

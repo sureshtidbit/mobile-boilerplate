@@ -6,6 +6,10 @@ export const CurrentUser = (payload) => ({
     type: 'CURRENT_USER',
     payload: payload
 });
+export const SaveUserInfo = (payload) => ({
+    type: 'SAVE_USER',
+    payload: payload
+});
 export const Loading = (payload) => ({
     type: 'LOADER_START',
     payload: payload

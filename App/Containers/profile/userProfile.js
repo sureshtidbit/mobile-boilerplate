@@ -37,6 +37,7 @@ class UserProfile extends Component {
             CurrentUserID: {},
             updateValue: true
         }
+        this.FocusTextBox = []
     }
     login() {
         let formBody = {
@@ -93,6 +94,9 @@ class UserProfile extends Component {
     }
     UpdateName() {
         this.setState({ updateValue: !this.state.updateValue })
+    }
+    FocusOnText(index) {
+        this.FocusTextBox[index+1].focus()
     }
     render() {
         const { width, height } = Dimensions.get('window')
@@ -206,6 +210,11 @@ class UserProfile extends Component {
                             </TouchableOpacity>
                             <HorizontalSliderCard data={DATA} />
                         </View>
+                        {DATA.map((item, i) => {
+                            return (
+                                <TextInput onSubmitEditing={() => this.FocusOnText(i)} blurOnSubmit={false} ref={(input) => { this.FocusTextBox[i] = input }} placeholder={item.title} />
+                            )
+                        })}
                     </View>
                 </ScrollView>
             </Container>

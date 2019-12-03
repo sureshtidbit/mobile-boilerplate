@@ -5,10 +5,11 @@ function* CheckUserLoggedIn(props) {
     console.log('params==>>>', props)
     try {
         const json = yield GET('isLoggedIn')
-        console.log('josin', json)
+        console.log('josin===>>>>>', json)
         if (json.status == 1001) {
             logout(props.payload)
         } else {
+            yield put({ type: "SAVE_USER_INFO", payload: json });
             goHomeScreen(props.payload)
         }
     }
@@ -51,7 +52,8 @@ function* MakeUserLogin(props) {
                     toast: false
                 }
             });
-            goHomeScreen(props.payload.props)
+            yield put({ type: "SAVE_USER_INFO", payload: json, });
+            yield goHomeScreen(props.payload.props)
             yield put({ type: "LOADER_STOP", payload: false });
         }
     }
@@ -93,7 +95,12 @@ function* LogoutThisUser(props) {
     catch (error) {
         logout(props.payload.props)
     }
-
+}
+function* SaveUserDetails(props) {
+    yield put({ type: "SAVE_USER_INFO", payload: props.payload });
+}
+function* SaveUserInfo() {
+    yield takeLatest("SAVE_USER", SaveUserDetails);
 }
 function* isUserLoggedIn() {
     yield takeLatest('IS_USER_LOGGED_IN', CheckUserLoggedIn)
@@ -117,6 +124,7 @@ export default function* rootSaga() {
         isUserLoggedIn(),
         loginAction(),
         HideErrorToaster(),
-        LogoutUser()
+        LogoutUser(),
+        SaveUserInfo()
     ]);
 }

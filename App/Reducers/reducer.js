@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
     currentUser: {},
+    UserInfo: {},
     isLoggingIn: false,
     loading: false,
     ErrorToaster: {
@@ -21,10 +22,15 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 currentUser: action.payload
             };
+        case 'SAVE_USER_INFO':
+            return {
+                ...state,
+                UserInfo: action.payload
+            };
         case 'LOGOUT_USER':
             return {
                 ...state,
-                currentUser: {}
+                UserInfo: {}
             };
         case 'LOADER_START':
             return {

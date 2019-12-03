@@ -1,1 +1,1 @@
-export const APIURL = 'https://edan-power.tidbitlab.com/api/';
+export const APIURL = 'https://boilerplate-staging.tidbitlab.com/api/';
