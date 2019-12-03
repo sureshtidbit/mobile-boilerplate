@@ -162,21 +162,16 @@ class LoginScreen extends Component {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ImageBackground source={require('../../Images/forgot-passwor-BG2.png')} style={{ position: 'absolute', width: '100%', height: 100, resizeMode: 'contain', top: 0 }}>
-                </ImageBackground>
-                <ImageBackground source={require('../../Images/forgot-passwor-BG.png')} style={{ position: 'absolute', width: '100%', height: 100, resize: 'scale', bottom: 0, }}>
-                </ImageBackground>
                     <View style={{  justifyContent: 'center', alignItems: 'center', alignContent:'center', }}>
-                        <Image source={require('../../Images/login-logo.png')} style={{ height: 150, justifyContent: 'center', alignItems: 'center', alignContent:'center', width: 150, resizeMode: 'contain',}} ></Image>
+                        <Image source={require('../../Images/Logo2.png')} style={{ height: 150, justifyContent: 'center', alignItems: 'center', alignContent:'center', width: 150, resizeMode: 'contain',}} ></Image>
                     </View>
-                    {/* <Text style={styles.loginText} >Login</Text> */}
                     <View style={styles.MainView3}>
                         <TextInput
                             style={styles.TextInputAll}
                             onChangeText={(v) => this.setState({ Email: v })}
                             label="Email"
                             value={this.state.Email}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1592ff', underlineColor: 'transparent' } }}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
                         />
                         <TextInput
                             style={styles.TextInputAll}
@@ -184,7 +179,7 @@ class LoginScreen extends Component {
                             onChangeText={(v) => this.setState({ Password: v })}
                             secureTextEntry={true}
                             value={this.state.Password}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1592ff', underlineColor: 'transparent' } }}
+                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
                         />
                         <View style={styles.LoginBtnView}>
                             <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
@@ -220,7 +215,7 @@ export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(Login
 const styles = StyleSheet.create({
     loginText: {
         fontSize: 20, fontWeight: '700', 
-        color: '#1592ff'
+        color: '#22c1c3'
     },
     ScrollView1: {
         flex: 1,
@@ -256,7 +251,7 @@ const styles = StyleSheet.create({
     LoginBtn: {
         fontSize: 16,
         color: '#fff',
-        backgroundColor: '#1592ff',
+        backgroundColor: '#22c1c3',
         paddingTop: 15,
         paddingBottom: 15,
         textAlign: 'center',
@@ -264,7 +259,7 @@ const styles = StyleSheet.create({
     },
     LoginBtnPSWD: {
         fontSize: 16,
-        color: '#000',
+        color: '#888',
         backgroundColor: 'transparent',
         paddingTop: 5,
         paddingBottom: 5,
