@@ -5,7 +5,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    Alert
+    Alert,
+    TouchableWithoutFeedback
 } from "react-native";
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,6 +17,20 @@ import { loginAction } from '../../Reducers/actions'
 import firebase from 'react-native-firebase';
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
+import { Formik } from 'formik';
+import * as yup from 'yup';
+
+
+const validationSchema = yup.object().shape({
+    Email: yup
+        .string()
+        .required()
+        .label('Email'),
+    Password: yup
+        .string()
+        .min(6)
+        .required()
+});
 
 class LoginScreen extends Component {
     state = {
@@ -156,39 +171,55 @@ class LoginScreen extends Component {
     ForgotPasswordMethod() {
         this.props.navigation.navigate('ForgotPassword')
     }
+
     render() {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <Text style={styles.loginText} >Login</Text>
-                    <View style={styles.MainView3}>
-                        <TextInput
-                            style={styles.TextInputAll}
-                            onChangeText={(v) => this.setState({ Email: v })}
-                            label="Email"
-                            value={this.state.Email}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
-                        />
-                        <TextInput
-                            style={styles.TextInputAll}
-                            label="Password"
-                            onChangeText={(v) => this.setState({ Password: v })}
-                            secureTextEntry={true}
-                            value={this.state.Password}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
-                        />
-                        <View style={styles.LoginBtnView}>
-                            <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtn}>Login</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.ForgotPasswordMethod()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtnPSWD}>Forgot Password</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
-                    {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
-                </View>
+                <Formik
+                    initialValues={{ Email: '', Password: '' }}
+                    onSubmit={(values, actions) => {
+                        console.log('on submitted', values, actions)
+                    }}
+                    validationSchema={validationSchema}
+                >
+                    {formikProps => (
+                        <React.Fragment>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
+                                <Text style={styles.loginText} >Login</Text>
+                                <View style={styles.MainView3}>
+                                    <TextInput
+                                        style={styles.TextInputAll}
+                                        onChangeText={(v) => this.setState({ Email: v })}
+                                        // onChangeText={formikProps.handleChange('Email')}
+                                        label="Email"
+                                        value={this.state.Email}
+                                        theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                    />
+                                    <Text style={{ color: 'red' }}>{formikProps.errors.Email}</Text>
+                                    <TextInput
+                                        style={styles.TextInputAll}
+                                        label="Password"
+                                        onChangeText={(v) => this.setState({ Password: v })}
+                                        // onChangeText={formikProps.handleChange('Password')}
+                                        secureTextEntry={true}
+                                        value={this.state.Password}
+                                        theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                    />
+                                    <View style={styles.LoginBtnView}>
+                                        <TouchableWithoutFeedback onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
+                                            <Text style={styles.LoginBtn}>Login</Text>
+                                        </TouchableWithoutFeedback>
+                                        <TouchableOpacity onPress={() => this.ForgotPasswordMethod()} style={styles.TouchableOpacityBtn}>
+                                            <Text style={styles.LoginBtnPSWD}>Forgot Password</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
+                                {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
+                            </View>
+                        </React.Fragment>
+                    )}
+                </Formik>
             </ScrollView>
         );
     }

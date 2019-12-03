@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 class Main extends Component {
   render() {
     return (
-      <Router />
+      <React.Fragment>
+        <Router />
+      </React.Fragment>
     )
   }
 }
