@@ -9,6 +9,7 @@ import AppLoginScreen from './login'
 import AppOTPVarificationScreen from './otp-varification'
 import AppRegisterScreen from './register'
 import AppAuthManiScreen from './index'
+import ForgotPassword from './forgotPassword'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -43,7 +44,7 @@ const AuthStack = createStackNavigator(
     {
         AppSplashScreen: { screen: AppSplashScreen },
         AppLoginScreen: { screen: AppLoginScreen },
-        AppOTPVarificationScreen: { screen: AppOTPVarificationScreen },
+        ForgotPassword: { screen: ForgotPassword },
         AppRegisterScreen: { screen: AppRegisterScreen },
         AppAuthManiScreen: { screen: AppAuthManiScreen }
 

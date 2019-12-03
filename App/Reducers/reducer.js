@@ -27,11 +27,11 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 UserInfo: action.payload
             };
-        case 'LOGOUT_USER':
-            return {
-                ...state,
-                UserInfo: {}
-            };
+        // case 'LOGOUT_USER':
+        //     return {
+        //         ...state,
+        //         UserInfo: {}
+        //     };
         case 'LOADER_START':
             return {
                 ...state,

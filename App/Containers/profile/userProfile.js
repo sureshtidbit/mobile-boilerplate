@@ -141,7 +141,7 @@ class UserProfile extends Component {
         ];
         return (
             <Container>
-                <Header style={{ backgroundColor: '#F00' }}>
+                <Header style={{ backgroundColor: '#22c1c3' }}>
                     <Left style={{ flex: 0.5 }}>
                         <Button transparent onPress={() => this.GoBack()} >
                             <Icon name='md-arrow-back' size={24} color='#FFF' />
