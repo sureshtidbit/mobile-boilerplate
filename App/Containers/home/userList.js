@@ -130,8 +130,8 @@ function Item({ title,props }) {
         <Text style={styles.title}>{title.title4}</Text>
       </View>
       <View style={styles.textUpView} style={{ flexDirection: 'row-reverse', flex: 1 }} >
-          <TouchableOpacity onPress={()=>props.GoToUserInfo(title)}  style={{ borderWidth: 1, borderColor: '#22c1c3', borderRadius: 50, height: 20, width: 20, justifyContent: 'center', alignItems: 'center', }} >
-            <Icon name="angle-right" color="#22c1c3" />
+          <TouchableOpacity onPress={()=>props.GoToUserInfo(title)}  style={{ height: 20, width: 20, justifyContent: 'center', alignItems: 'center', }} >
+            <Icon style={{ fontSize: 16 }} name="angle-right" color="#22c1c3" />
           </TouchableOpacity>
       </View>
     </View>
@@ -156,10 +156,12 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     flexDirection:'row',
-    backgroundColor: '#ddd',
+    backgroundColor: '#fff',
     padding: 10,
-    marginVertical: .5,
-    alignItems: 'center'
+    marginVertical: 0,
+    alignItems: 'center',
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
   },
   title: {
     fontSize: 10,
