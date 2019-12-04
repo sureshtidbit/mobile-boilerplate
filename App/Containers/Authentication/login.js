@@ -7,7 +7,8 @@ import {
     Text,
     Alert,
     Image,
-    ImageBackground
+    ImageBackground,
+    TouchableWithoutFeedback
 } from "react-native";
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -18,6 +19,20 @@ import { loginAction } from '../../Reducers/actions'
 import firebase from 'react-native-firebase';
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
+import { Formik } from 'formik';
+import * as yup from 'yup';
+
+
+const validationSchema = yup.object().shape({
+    Email: yup
+        .string()
+        .required()
+        .label('Email'),
+    Password: yup
+        .string()
+        .min(6)
+        .required()
+});
 
 class LoginScreen extends Component {
     state = {
@@ -158,6 +173,7 @@ class LoginScreen extends Component {
     ForgotPasswordMethod() {
         this.props.navigation.navigate('ForgotPassword')
     }
+
     render() {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
