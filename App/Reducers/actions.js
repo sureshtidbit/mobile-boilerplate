@@ -25,3 +25,7 @@ export const loginAction = (payload) => ({
 export const ErrorToasterHide = () => ({
     type: 'ERROR_TOASTER'
 });
+export const ForgotPasswordAction = (payload) => ({
+    type: 'FORGOT_PASSWORD_ACTION',
+    payload: payload
+});

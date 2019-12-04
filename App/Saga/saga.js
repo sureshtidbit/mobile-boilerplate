@@ -96,6 +96,53 @@ function* LogoutThisUser(props) {
         logout(props.payload.props)
     }
 }
+
+function* ForgotPasswordMethod(props) {
+    console.log('params==>>>forgot', props)
+    try {
+        yield put({ type: "LOADER_START", payload: true });
+        const json = yield POST('forgotPass', props.payload.data)
+        console.log('login -user', json)
+        if (json.success == false) {
+            yield put({
+                type: "ERROR_TOAST_SHOW", payload: {
+                    message: json.errors.error,
+                    toast: true
+                }
+            });
+        } else {
+
+        }
+        // if (json.status == 1005 || json.err) {
+        //     yield put({
+        //         type: "ERROR_TOAST_SHOW", payload: {
+        //             message: 'your credentials are wrong!',
+        //             toast: true
+        //         }
+        //     });
+        // } else {
+        //     yield put({
+        //         type: "ERROR_TOAST_HIDE", payload: {
+        //             message: '',
+        //             toast: false
+        //         }
+        //     });
+        // yield put({ type: "SAVE_USER_INFO", payload: json, });
+        // yield goHomeScreen(props.payload.props)
+        yield put({ type: "LOADER_STOP", payload: false });
+        // }
+    }
+    catch (error) {
+        console.log('error===', error)
+        yield put({ type: "LOADER_STOP", payload: false });
+        yield put({
+            type: "ERROR_TOAST_SHOW", payload: {
+                message: 'Oops! Internal server error!',
+                toast: true
+            }
+        });
+    }
+}
 function* SaveUserDetails(props) {
     yield put({ type: "SAVE_USER_INFO", payload: props.payload });
 }
@@ -117,6 +164,9 @@ function* HideErrorToaster() {
 function* LogoutUser() {
     yield takeLatest('LOGOUT_USER', LogoutThisUser)
 }
+function* ForgotPassword() {
+    yield takeLatest('FORGOT_PASSWORD_ACTION', ForgotPasswordMethod)
+}
 
 export default function* rootSaga() {
     yield all([
@@ -125,6 +175,7 @@ export default function* rootSaga() {
         loginAction(),
         HideErrorToaster(),
         LogoutUser(),
-        SaveUserInfo()
+        SaveUserInfo(),
+        ForgotPassword()
     ]);
 }

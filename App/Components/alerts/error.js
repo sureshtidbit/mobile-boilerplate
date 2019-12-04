@@ -22,6 +22,7 @@ class ErrorAlert extends Component {
         this.callToast()
     }
     callToast() {
+        console.log('callToast')
         Animated.timing(
             this.animatedValue,
             {
@@ -31,6 +32,7 @@ class ErrorAlert extends Component {
     }
 
     closeToastMethod() {
+        console.log('closeToastMethod')
         Animated.timing(
             this.animatedValue,
             {
@@ -40,13 +42,15 @@ class ErrorAlert extends Component {
         this.props.ErrorToasterHide()
     }
     closeToast() {
+        console.log('closeToast')
         setTimeout(() => {
             Animated.timing(
                 this.animatedValue,
                 {
                     toValue: 70,
                     duration: 350
-                }).start()
+                }).start(),
+                this.props.ErrorToasterHide()
         }, 10000)
     }
     render() {
@@ -91,7 +95,7 @@ const mapDispatchToProps = (dispatch) => {
         ErrorToasterHide: () => dispatch(ErrorToasterHide()),
     };
 };
-export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(ErrorAlert))
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorAlert)
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1
