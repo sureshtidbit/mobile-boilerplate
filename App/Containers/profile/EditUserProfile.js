@@ -114,47 +114,76 @@ class UserProfile extends Component {
                         <Button style={{ position: 'absolute', left: 20, top: 15 }} transparent onPress={() => this.GoBack()} >
                             <Icon name={Platform.OS == 'android' ? 'md-arrow-back' : 'ios-arrow-back'} size={24} color="#fff" />
                         </Button>
-                        <View style={{ }}>
-                            <View style={{ paddingLeft: 20, paddingRight: 20, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 50 }}>
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}} >Name</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 16, fontWeight: 'bold',  lineHeight: 16, marginTop: 0, }}>{this.props.UserInfo.success ? this.props.UserInfo.name : null}</Text>
-                                </View>
+                        <View style={{}}>
+                            <View style={{paddingLeft: 20, marginRight: 20, marginBottom: 40,}}>
+                               <View style={{height: 30, marginBottom: 30}}>
+                               <TextInput
+                                    style={styles.TextInputAll}
+                                    label="Name"
+                                    onChangeText={(v) => this.setState({ Name: v })}
+                                    value={this.state.Name}
+                                    theme={{ colors: { lineHeight:14 , background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+                               </View>
+                               
 
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>Email</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 16, fontWeight: '500', color: '#000',  }}>{this.props.UserInfo.success ? this.props.UserInfo.email : null}</Text>
-                                </View>
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="Email"
+                                    onChangeText={(v) => this.setState({ Email: v })}
+                                    value={this.state.Email}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="Phone Number"
+                                    onChangeText={(v) => this.setState({ PhoneNumber: v })}
+                                    value={this.state.PhoneNumber}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="Street Address"
+                                    onChangeText={(v) => this.setState({ StreetAddress: v })}
+                                    value={this.state.StreetAddress}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="City"
+                                    onChangeText={(v) => this.setState({ City: v })}
+                                    value={this.state.City}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="State"
+                                    onChangeText={(v) => this.setState({ State: v })}
+                                    value={this.state.State}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="Pascode"
+                                    onChangeText={(v) => this.setState({ Pascode: v })}
+                                    value={this.state.Pascode}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
+                                <TextInput
+                                    style={styles.TextInputAll}
+                                    label="Country"
+                                    onChangeText={(v) => this.setState({ Country: v })}
+                                    value={this.state.Country}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
+                                />
+
                                 
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>Phone Number</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 20, color: '#000', fontWeight: '500' }}>+91 8542698745</Text>
-                                </View>
-
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>Street Address</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 20, color: '#000', fontWeight: '500' }}>407 iscon plaza Opp. start bazaar iscon road scon plaza Opp. start bazaar iscon road</Text>
-                                </View>
-
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>City</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 20, color: '#000', fontWeight: '500' }}>Ahmedabad</Text>
-                                </View>
-
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>State</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 20, color: '#000', fontWeight: '500' }}>Gujarat</Text>
-                                </View>
-
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>Pascode</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 20, color: '#000', fontWeight: '500' }}>380015</Text>
-                                </View>
-
-                                <View style={{marginBottom: 20}}>
-                                    <Text style={{fontSize: 10, color: '#888',}}>Country</Text>
-                                    <Text style={{ fontSize: 16,  lineHeight: 20, color: '#000', fontWeight: '500' }}>India</Text>
-                                </View>
                             </View>
                         </View>
                     </View>
@@ -197,13 +226,34 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         paddingBottom: 10,
         paddingLeft: 5,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         color: '#424242',
-        borderRadius: 50
+        borderRadius: 50,
+        lineHeight: 16
     },
     lineStyle: {
         borderWidth: 0.5,
         borderColor: '#BBB',
     },
-  
+    TextInputAll: {
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+        // marginTop: 15,
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+        paddingHorizontal: 0,
+        lineHeight: 16
+    },
+    LoginBtn: {
+        fontSize: 16,
+        color: '#fff',
+        paddingTop: 15,
+        paddingBottom: 15,
+        textAlign: 'center',
+    },
+    TouchableOpacityBtn:{
+        backgroundColor: '#22c1c3',
+        marginTop: 30,
+        marginBottom: 30
+    }
 });
