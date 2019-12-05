@@ -1,5 +1,5 @@
 import { put, takeLatest, call, all } from 'redux-saga/effects';
-import { GET, POST } from './service'
+import { GET, POST, FormPostAPI } from './service'
 import { logout, goHomeScreen } from './auth'
 function* CheckUserLoggedIn(props) {
     console.log('params==>>>', props)
@@ -143,6 +143,28 @@ function* ForgotPasswordMethod(props) {
         });
     }
 }
+
+function* UploadUserPic(props) {
+    console.log('params==>>>forgot', props)
+    try {
+        // yield put({ type: "LOADER_START", payload: true });
+        const json = yield FormPostAPI('user/reguser/uploadImage', props.payload)
+        console.log('login -user', json)
+        // if (json.success == false) {
+        //     yield put({
+        //         type: "ERROR_TOAST_SHOW", payload: {
+        //             message: json.errors.error,
+        //             toast: true
+        //         }
+        //     });
+        // } else {
+
+        // }
+    }
+    catch (error) {
+        console.log('rrr', error)
+    }
+}
 function* SaveUserDetails(props) {
     yield put({ type: "SAVE_USER_INFO", payload: props.payload });
 }
@@ -167,6 +189,9 @@ function* LogoutUser() {
 function* ForgotPassword() {
     yield takeLatest('FORGOT_PASSWORD_ACTION', ForgotPasswordMethod)
 }
+function* UserPicAction() {
+    yield takeLatest('USER_PIC_ACTION', UploadUserPic)
+}
 
 export default function* rootSaga() {
     yield all([
@@ -176,6 +201,7 @@ export default function* rootSaga() {
         HideErrorToaster(),
         LogoutUser(),
         SaveUserInfo(),
-        ForgotPassword()
+        ForgotPassword(),
+        UserPicAction()
     ]);
 }

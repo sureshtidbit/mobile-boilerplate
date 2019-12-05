@@ -29,3 +29,7 @@ export const ForgotPasswordAction = (payload) => ({
     type: 'FORGOT_PASSWORD_ACTION',
     payload: payload
 });
+export const UploadUserPicAction = (payload) => ({
+    type: 'USER_PIC_ACTION',
+    payload: payload
+});
