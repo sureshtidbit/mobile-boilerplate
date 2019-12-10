@@ -95,7 +95,7 @@ class UserProfile extends Component {
                         </Button>
                         <View style={{ marginTop: 50 }}>
                             <TouchableOpacity onPress={() => this.LoadImage()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={require('../../Images/a2.png')} />
+                                <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={{uri: this.props.UserInfo.success ? this.props.UserInfo.userPic : null}} />
                                 <FontAwesome style={{ padding: 5, backgroundColor:'#EEE',position: 'absolute', top: 110 / 2, left: (width / 2) + (110 / 2)-12 }} name="pencil" size={24} color="#F00" />
                             </TouchableOpacity>
                         </View>
@@ -112,6 +112,7 @@ const mapStateToProps = (state) => {
     return {
         loading: state.authReducer.loading,
         ErrorToaster: state.authReducer.ErrorToaster,
+        UserInfo: state.authReducer.UserInfo
     };
 };
 const mapDispatchToProps = (dispatch) => {

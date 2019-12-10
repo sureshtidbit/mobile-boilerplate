@@ -6,11 +6,7 @@ import ErrorToaster from './App/Components/alerts/error'
 class Main extends Component {
   render() {
     return (
-      <React.Fragment>
-        <StatusBar backgroundColor='#22c1c3' barStyle="light-content" />
-        <Router />
-        {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
-      </React.Fragment>
+      <Router />
     )
   }
 }
