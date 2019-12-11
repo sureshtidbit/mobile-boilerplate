@@ -16,6 +16,8 @@ import SideDrawer from '../App/Containers/sideDrawer'
 import HomeBottomTabBar from '../App/Containers/bottomTabNavigation/index'
 import IsLoggedIn from '../App/Containers/Authentication/index'
 import AppSplashScreen from '../App/Containers/Authentication/authRoutes'
+import { connect } from 'react-redux';
+import { Loading } from './Reducers/actions'
 const width = Dimensions.get('window').width
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
@@ -46,6 +48,10 @@ const TransitionConfiguration = () => {
             }[transition];
         },
     }
+}
+function TrackRoutesChange(previousRouteName, currentRouteName, action) {
+    console.log(this, 'ErrorToaster', previousRouteName, currentRouteName, action)
+    // this.props.Loading(true)
 }
 function getActiveRouteName(navigationState) {
     if (!navigationState) {
@@ -80,15 +86,29 @@ const AppSwitchNav = createSwitchNavigator({
 )
 const AppContainer = createAppContainer(AppSwitchNav);
 // export default createAppContainer(AppSwitchNav);
-export default () => (
+const AppRouterContainer = () => (
     <AppContainer
         onNavigationStateChange={(prevState, currentState, action) => {
             const currentRouteName = getActiveRouteName(currentState);
             const previousRouteName = getActiveRouteName(prevState);
 
             if (previousRouteName !== currentRouteName) {
-                console.log('=============>>>>>>>>>>.', previousRouteName, currentRouteName)
+                // TrackRoutesChange(previousRouteName, currentRouteName)
+                // TrackChanges = { previousRouteName, currentRouteName }
+                console.log('=============>>>>>>>>>>.', previousRouteName, currentRouteName, action)
             }
         }}
     />
 );
+const mapStateToProps = (state) => {
+    console.log(state, 'state>>AppRouterContainer>>')
+    return {
+        ErrorToaster: state.authReducer.ErrorToaster,
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        Loading: (payload) => dispatch(Loading(payload)),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouterContainer)

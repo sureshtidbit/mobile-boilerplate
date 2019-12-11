@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import { StatusBar } from 'react-native'
 import ErrorToaster from './App/Components/alerts/error'
 class Main extends Component {
+  TrackChanges(v) {
+    console.log('TrackChanges=>>', v)
+  }
   render() {
     return (
-      <Router />
+      <Router TrackChanges={(e) => this.TrackChanges(e)} />
     )
   }
 }

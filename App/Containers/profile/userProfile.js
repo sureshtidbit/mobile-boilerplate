@@ -15,10 +15,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
 import { Avatar } from 'react-native-paper';
 import { connect } from 'react-redux';
-let APIURL = 'https://edan-power.tidbitlab.com/api/logout'
 import ImagePicker from 'react-native-image-picker'
-import Editprofile from './EditUserProfile'
-import Viewprofile from './ViewUserProfile'
 import { UploadUserPicAction } from '../../Reducers/actions'
 const width = Dimensions.get('window').width
 
@@ -30,6 +27,9 @@ class UserProfile extends Component {
         this.props.navigation.goBack();
     }
     LoadImage() {
+        if (!this.state.EditProfile) {
+            return;
+        }
         const options = {
             noData: true,
         }
@@ -47,11 +47,6 @@ class UserProfile extends Component {
                     name: response.fileName,
                     type: response.type
                 })
-                // this.setState({ UserImageURI: media.uri })
-                // var formData = new FormData();
-                // formData.append("image", media);
-                // formData.append("type", 'user_profile_pic');
-                // this.setState({ UserImage: formData })
                 this.props.UploadUserPicAction(formData1)
                 console.log('hh==>>', formData1)
             }
@@ -59,7 +54,11 @@ class UserProfile extends Component {
     }
 
     ToggleEditProfile() {
-        this.setState({ EditProfile: !this.state.EditProfile })
+        console.log('dwdw')
+        this.props.navigation.navigate('EditUserProfile', {
+            UserInfo: this.props.UserInfo
+        });
+        // this.setState({ EditProfile: !this.state.EditProfile })
     }
     render() {
         let EditProfile = this.state.EditProfile
@@ -67,20 +66,17 @@ class UserProfile extends Component {
             <Container>
                 <Header style={{ elevation: 0, backgroundColor: 'transparent' }}>
                     <Left style={{ flex: 1 }}>
-                        <Button transparent onPress={() => this.GoBack()} >
+                        {/* <Button transparent onPress={() => this.GoBack()} >
                             <Icon name='md-arrow-back' size={24} color='#F00' />
-                        </Button>
+                        </Button> */}
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#F00' }}>Profile</Text>
                     </Body>
                     <Right style={{ flex: 1 }}>
-                        {!EditProfile ? <Button transparent onPress={() => this.ToggleEditProfile()} >
+                        <Button transparent onPress={() => this.ToggleEditProfile()} >
                             <FontAwesome name='edit' size={24} color='#F00' />
-                        </Button> :
-                            <Button transparent onPress={() => this.ToggleEditProfile()} >
-                                <Text>Save</Text>
-                            </Button>}
+                        </Button>
                     </Right>
                 </Header>
                 <ScrollView
@@ -95,12 +91,50 @@ class UserProfile extends Component {
                         </Button>
                         <View style={{ marginTop: 50 }}>
                             <TouchableOpacity onPress={() => this.LoadImage()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={{uri: this.props.UserInfo.success ? this.props.UserInfo.userPic : null}} />
-                                <FontAwesome style={{ padding: 5, backgroundColor:'#EEE',position: 'absolute', top: 110 / 2, left: (width / 2) + (110 / 2)-12 }} name="pencil" size={24} color="#F00" />
+                                <Avatar.Image size={110} source={{ uri: this.props.UserInfo.success ? this.props.UserInfo.userPic : null }} />
                             </TouchableOpacity>
                         </View>
-                        {EditProfile ? <Editprofile></Editprofile> :
-                            <Viewprofile></Viewprofile>}
+                        <View style={{ paddingLeft: 20, paddingRight: 20, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 50 }}>
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }} >Name</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 16, fontWeight: 'bold', lineHeight: 16, marginTop: 0, }}>{this.props.UserInfo.success ? this.props.UserInfo.name : null}</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>Email</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 16, fontWeight: '500', color: '#000', }}>{this.props.UserInfo.success ? this.props.UserInfo.email : null}</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>Phone Number</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 20, color: '#000', fontWeight: '500' }}>+91 8542698745</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>Street Address</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 20, color: '#000', fontWeight: '500' }}>407 iscon plaza Opp. start bazaar iscon road scon plaza Opp. start bazaar iscon road</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>City</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 20, color: '#000', fontWeight: '500' }}>Ahmedabad</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>State</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 20, color: '#000', fontWeight: '500' }}>Gujarat</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>Pascode</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 20, color: '#000', fontWeight: '500' }}>380015</Text>
+                            </View>
+
+                            <View style={{ marginBottom: 20 }}>
+                                <Text style={{ fontSize: 10, color: '#888', }}>Country</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 20, color: '#000', fontWeight: '500' }}>India</Text>
+                            </View>
+                        </View>
                     </View>
                 </ScrollView>
             </Container>

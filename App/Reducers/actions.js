@@ -33,3 +33,7 @@ export const UploadUserPicAction = (payload) => ({
     type: 'USER_PIC_ACTION',
     payload: payload
 });
+export const SaveUserInfoAction = (payload) => ({
+    type: 'USER_SAVE_INFO_ACTION',
+    payload: payload
+});

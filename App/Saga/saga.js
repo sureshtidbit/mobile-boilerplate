@@ -113,24 +113,7 @@ function* ForgotPasswordMethod(props) {
         } else {
 
         }
-        // if (json.status == 1005 || json.err) {
-        //     yield put({
-        //         type: "ERROR_TOAST_SHOW", payload: {
-        //             message: 'your credentials are wrong!',
-        //             toast: true
-        //         }
-        //     });
-        // } else {
-        //     yield put({
-        //         type: "ERROR_TOAST_HIDE", payload: {
-        //             message: '',
-        //             toast: false
-        //         }
-        //     });
-        // yield put({ type: "SAVE_USER_INFO", payload: json, });
-        // yield goHomeScreen(props.payload.props)
         yield put({ type: "LOADER_STOP", payload: false });
-        // }
     }
     catch (error) {
         console.log('error===', error)
@@ -147,19 +130,47 @@ function* ForgotPasswordMethod(props) {
 function* UploadUserPic(props) {
     console.log('params==>>>forgot', props)
     try {
-        // yield put({ type: "LOADER_START", payload: true });
+        yield put({ type: "LOADER_START", payload: true });
         const json = yield FormPostAPI('user/reguser/uploadImage', props.payload)
+        yield put({ type: "LOADER_STOP", payload: false });
         console.log('login -user', json)
-        // if (json.success == false) {
-        //     yield put({
-        //         type: "ERROR_TOAST_SHOW", payload: {
-        //             message: json.errors.error,
-        //             toast: true
-        //         }
-        //     });
-        // } else {
+        try {
+            const json = yield GET('isLoggedIn')
+            console.log('josin===>>>>>', json)
+            if (json.status == 1001) {
+                logout(props.payload)
+            } else {
+                yield put({ type: "SAVE_USER_INFO", payload: json });
+            }
+        }
+        catch (error) {
+            logout(props.payload)
+        }
+    }
+    catch (error) {
+        console.log('rrr', error)
+    }
+}
 
-        // }
+function* UpdateUserInfo(props) {
+    console.log('params==>>>update', props)
+    try {
+        yield put({ type: "LOADER_START", payload: true });
+        const json = yield POST('user/reguser/update', props.payload.data)
+        yield put({ type: "LOADER_STOP", payload: false });
+        console.log('login -user updated', json)
+        try {
+            const json = yield GET('isLoggedIn')
+            console.log('josin===>>>>>', json)
+            if (json.status == 1001) {
+                logout(props.payload.props)
+            } else {
+                yield put({ type: "SAVE_USER_INFO", payload: json });
+            }
+        }
+        catch (error) {
+            logout(props.payload.props)
+        }
     }
     catch (error) {
         console.log('rrr', error)
@@ -193,6 +204,9 @@ function* UserPicAction() {
     yield takeLatest('USER_PIC_ACTION', UploadUserPic)
 }
 
+function* UserSaveInfoAction() {
+    yield takeLatest('USER_SAVE_INFO_ACTION', UpdateUserInfo)
+}
 export default function* rootSaga() {
     yield all([
         userInfo(),
@@ -202,6 +216,7 @@ export default function* rootSaga() {
         LogoutUser(),
         SaveUserInfo(),
         ForgotPassword(),
-        UserPicAction()
+        UserPicAction(),
+        UserSaveInfoAction()
     ]);
 }
