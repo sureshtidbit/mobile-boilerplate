@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import Router from './App/routes'
 import { connect } from 'react-redux';
+import { StatusBar } from 'react-native'
+import ErrorToaster from './App/Components/alerts/error'
 class Main extends Component {
+  TrackChanges(v) {
+    console.log('TrackChanges=>>', v)
+  }
   render() {
     return (
-      <React.Fragment>
-        <Router />
-      </React.Fragment>
+      <Router TrackChanges={(e) => this.TrackChanges(e)} />
     )
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state, 'state>>>>')
+  console.log(state, 'state>>ErrorToaster>>')
   return {
-    currentUser: state.authReducer.isLoggingIn,
+    ErrorToaster: state.authReducer.ErrorToaster,
   };
 };
 export default connect(mapStateToProps)(Main)

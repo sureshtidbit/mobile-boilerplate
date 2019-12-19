@@ -14,12 +14,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
-import { loginAction } from '../../Reducers/actions'
 import firebase from 'react-native-firebase';
 import { Progress } from '../ProgressDialog/index'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ErrorToaster from '../../Components/alerts/error'
-
+import {ForgotPasswordAction} from '../../Reducers/actions'
 class ForgotPasswordScreen extends Component {
     state = {
         Password: '',
@@ -27,6 +26,9 @@ class ForgotPasswordScreen extends Component {
     }
     GoBackToHome() {
         this.props.navigation.goBack()
+    }
+    SubmitMethod(){
+        this.props.ForgotPasswordAction({email:'dwdwd'})
     }
     render() {
         return (
@@ -49,13 +51,13 @@ class ForgotPasswordScreen extends Component {
                             theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#22c1c3', underlineColor: 'transparent' } }}
                         />
                         <View style={styles.LoginBtnView}>
-                            <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
+                            <TouchableOpacity onPress={() => this.SubmitMethod()} style={styles.TouchableOpacityBtn}>
                                 <Text style={styles.LoginBtn}>Submit</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     
-                    <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
+                    <Progress DialogLoader={this.props.loading} title={'Please wait...'} />
                     {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
                     
                 </View>
@@ -72,7 +74,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginAction: (payload) => dispatch(loginAction(payload)),
+        ForgotPasswordAction: (payload) => dispatch(ForgotPasswordAction(payload)),
     };
 };
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordScreen))

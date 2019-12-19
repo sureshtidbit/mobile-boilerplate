@@ -93,7 +93,7 @@ class SideMenu extends Component {
             <ScrollView>
                 <View style={{ flex: 1 }}>
                     <TouchableOpacity onPress={() => this.GoToProfile()} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 20 }}>
-                        <Avatar.Image size={80} source={require('../../Images/sp2.jpg')} />
+                        <Avatar.Image size={80} source={{uri: this.props.UserInfo.success ? this.props.UserInfo.userPic : null}} />
                         <Text style={{ marginTop: 10, fontSize: 18, fontWeight: '700' }}>{this.props.UserInfo.success ? this.props.UserInfo.name : null}</Text>
                         <Text style={{ fontSize: 14, fontWeight: '400' }}>{this.props.UserInfo.success ? this.props.UserInfo.email : null}</Text>
                     </TouchableOpacity>

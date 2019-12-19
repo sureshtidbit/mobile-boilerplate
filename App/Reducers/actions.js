@@ -25,3 +25,15 @@ export const loginAction = (payload) => ({
 export const ErrorToasterHide = () => ({
     type: 'ERROR_TOASTER'
 });
+export const ForgotPasswordAction = (payload) => ({
+    type: 'FORGOT_PASSWORD_ACTION',
+    payload: payload
+});
+export const UploadUserPicAction = (payload) => ({
+    type: 'USER_PIC_ACTION',
+    payload: payload
+});
+export const SaveUserInfoAction = (payload) => ({
+    type: 'USER_SAVE_INFO_ACTION',
+    payload: payload
+});
