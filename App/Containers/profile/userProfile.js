@@ -18,6 +18,7 @@ let APIURL = 'https://edan-power.tidbitlab.com/api/logout'
 
 import Editprofile from './EditUserProfile'
 import Viewprofile from './ViewUserProfile'
+import LearnProps from './LearnProps'
 
 class UserProfile extends Component {
    
@@ -58,8 +59,9 @@ class UserProfile extends Component {
                                 <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={require('../../Images/a2.png')} />
                             </TouchableOpacity>
                         </View>
-                        <Editprofile></Editprofile>
+                        {/* <Editprofile></Editprofile> */}
                         {/* <Viewprofile></Viewprofile> */}
+                        <LearnProps></LearnProps>
                     </View>
                 </ScrollView>
             </Container>

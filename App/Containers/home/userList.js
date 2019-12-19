@@ -1,12 +1,13 @@
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, ScrollView, Image } from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, ScrollView, Image, } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Searchbar } from 'react-native-paper';
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-ae2d5-3ad53abb28ba',
     title: 'Created By',
-    title2: 'Sanjay shah Tidbit solution',
+    title2: 'Sanjay shah Tidbit solutionfghhfggfh',
     title3: 'Fronend Designer',
     title4: 'sanjay@tidbitlab.com',
   },
@@ -121,6 +122,7 @@ const myIcon = <Icon name="rocket" size={30} color="#900" />;
 function Item({ title,props }) {
   return (
     <View key={title.id} style={styles.item} >
+     
       <View style={styles.textUpView}>
         <Image style={{ height:40, width: 40, marginRight: 10,}} source={require('../../Images/a2.png')} />
       </View>
@@ -139,15 +141,24 @@ function Item({ title,props }) {
 }
 
 export default function UserList(props) {
-  console.log(props,'props')
+  console.log(props,'props');
   return (
-      <ScrollView>
+    <View>
+      <View>
+            <Searchbar 
+             placeholder="Search" 
+            //  onChangeText={query => { this.setState({ firstQuery: query }); }}
+            ></Searchbar>
+         </View>
+      <ScrollView 
+      >
         <FlatList
             data={DATA}
             renderItem={({ item }) => <Item title={item} props={props} />}
             keyExtractor={item => item.id}
         />
       </ScrollView>
+    </View>
   );
 }
 
