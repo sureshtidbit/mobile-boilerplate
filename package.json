@@ -24,7 +24,7 @@
     "@react-native-community/async-storage": "^1.6.3",
     "apisauce": "^1.1.1",
     "formik": "^2.0.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
     "react": "16.9.0",
